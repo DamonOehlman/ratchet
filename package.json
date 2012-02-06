@@ -1,0 +1,27 @@
+{
+    "name": "ratchet",
+    "description": "CSS3 Transform Parsers and Generator",
+    "tags": ["css3", "transform"],
+    "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
+    "version": "0.0.1",
+    "main": "ratchet",
+    
+    "dependencies": {
+    },
+    
+    "devDependencies": {
+        "mocha": "*"
+    },
+    
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/DamonOehlman/ratchet.git"
+    },
+    
+    "bugs": {
+        "url": "http://github.com/DamonOehlman/ratchet/issues"
+    },
+
+    "contributors": [
+    ]
+}
