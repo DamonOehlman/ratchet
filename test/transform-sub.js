@@ -1,7 +1,7 @@
 var expect = require('chai').expect,
-    tx1, tx2, tx3;
+    tx1, tx2;
 
-describe('ratchet transform addition', function() {
+describe('ratchet transform subtraction', function() {
     it('should be able to parse an initial translation', function() {
         tx1 = ratchet('translate(50px, 120px) scale(2.0, 1.0)');
         
@@ -26,29 +26,29 @@ describe('ratchet transform addition', function() {
         expect(tx2.translate.z).to.not.exist;
     });
     
-    it('should be able to add the two transforms', function() {
-        var tx = tx1.add(tx2);
+    it('should be able to subtract the two transforms', function() {
+        var tx = tx1.sub(tx2);
         
         expect(tx.translate).to.exist;
-        expect(tx.translate.x == 140).to.be.ok;
-        expect(tx.translate.y == 200).to.be.ok;
+        expect(tx.translate.x == -40).to.be.ok;
+        expect(tx.translate.y == 40).to.be.ok;
         expect(tx.translate.x.units).to.equal('px');
         expect(tx.translate.y.units).to.equal('px');
-        expect(tx.scale.x == 1).to.be.ok;
-        expect(tx.scale.y == 0.5).to.be.ok;
+        expect(tx.scale.x == 4).to.be.ok;
+        expect(tx.scale.y == 2).to.be.ok;
         expect(tx.translate.z).to.not.exist;
     });
     
-    it('should be able to add all the transforms', function() {
-        var tx = tx1.add(tx2, tx2);
+    it('should be able to subtract two transforms for the original transform', function() {
+        var tx = tx1.sub(tx2, tx2);
         
         expect(tx.translate).to.exist;
-        expect(tx.translate.x == 230).to.be.ok;
-        expect(tx.translate.y == 280).to.be.ok;
+        expect(tx.translate.x == -130).to.be.ok;
+        expect(tx.translate.y == -40).to.be.ok;
         expect(tx.translate.x.units).to.equal('px');
         expect(tx.translate.y.units).to.equal('px');
-        expect(tx.scale.x == 0.5).to.be.ok;
-        expect(tx.scale.y == 0.25).to.be.ok;
+        expect(tx.scale.x == 8).to.be.ok;
+        expect(tx.scale.y == 4).to.be.ok;
         expect(tx.translate.z).to.not.exist;
     });
 });

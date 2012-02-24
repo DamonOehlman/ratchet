@@ -1,6 +1,6 @@
 function TransformValue(value, units) {
     this.value = parseFloat(value) || value;
-    this.units = units || 'px';
+    this.units = typeof units != 'undefined' ? units : 'px';
 }
 
 TransformValue.prototype.valueOf = function() {
