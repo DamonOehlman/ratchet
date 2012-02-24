@@ -4,7 +4,11 @@
   <title>Mocha Tests</title>
   <link rel="stylesheet" href="lib/mocha.css" />
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script src="../ratchet.js"></script>
+  <script src="../src/types/value.js"></script>
+  <script src="../src/types/xyz.js"></script>
+  <script src="../src/types/transform.js"></script>
+  <script src="../src/matchers.js"></script>
+  <script src="../src/ratchet.js"></script>
   <script src="https://raw.github.com/logicalparadox/chai/master/chai.js"></script>
   <script src="lib/mocha.js"></script>
   <script>mocha.setup('bdd');</script>
@@ -16,6 +20,8 @@
   }
   </script>
   <script src="parser.js"></script>
+  <script src="xyz-add.js"></script>
+  <script src="transform-add.js"></script>
   <script>
     $(function () {
       mocha.run();

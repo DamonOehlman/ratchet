@@ -1,3 +1,15 @@
+function _extractVal(index, expectUnits) {
+    return function(match) {
+        var units, value;
+        if (typeof expectUnits == 'undefined' || expectUnits) {
+            units = match[index + 1];
+        }
+
+        // create the transform value
+        return new TransformValue(match[index], units);
+    };
+} // _extractVal
+
 function _makeRegex(fnName, params) {
     var regex = fnName + '\\(';
     

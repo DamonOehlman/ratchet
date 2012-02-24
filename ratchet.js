@@ -22,34 +22,46 @@ var ratchet = (function() {
         return match;
     };
 
-    function XYZ(opts) {
+    function XYZ(type, opts) {
         opts = opts || {};
         
+        this.type = type;
         this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : 0);
         this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : 0);
-        this.z = new TransformValue(typeof opts.z != 'undefined' ? opts.z : 0);
+        
+        if (opts.z) {
+            this.z = new TransformValue(opts.z);
+        }
     }
     
-    XYZ.prototype.add = function() {
+    XYZ.prototype.add = function(value) {
         var x = this.x.valueOf(), 
             y = this.y.valueOf(),
-            z = this.z.valueOf();
+            z = this.z ? this.z.valueOf() : 0;
         
-        for (var ii = arguments.length; ii--; ) {
-            x += arguments[ii].x;
-            y += arguments[ii].y;
-            z += arguments[ii].z;
+        if (typeof value == 'number') {
+            x += value;
+            y += value;
+            z = typeof this.z != 'undefined' ? z + value : 0;
+        }
+        else {
+            for (var ii = arguments.length; ii--; ) {
+                x += arguments[ii].x;
+                y += arguments[ii].y;
+                z += arguments[ii].z;
+            }
         }
         
-        return new XYZ({ x: x, y: y, z: z });
+        return new XYZ(this.type, { x: x, y: y, z: z });
     };
-
-    function Scaler(opts) {
-        opts = opts || {};
-        
-        this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : 1);
-        this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : 1);
-    }
+    
+    XYZ.prototype.invert = function() {
+        return new XYZ(this.type, { x: -x, y: -y, z: -z });
+    };
+    
+    XYZ.prototype.toString = function(opts) {
+        return this.type + '(' + [this.x, this.y].join(', ') + ')';
+    };
 
     function RatchetTransform(opts) {
         opts = opts || {};
@@ -57,23 +69,43 @@ var ratchet = (function() {
         // create new translation rotation and scale values, duplicating the value provided 
         this.translate = new XYZ(opts.translate);
         this.rotate = new XYZ(opts.rotate);
-        this.scale = new Scaler(opts.scale);
+        this.scale = new XYZ(opts.scale);
     }
     
     RatchetTransform.prototype = {
-        add: function() {
+        add: function(value) {
             // create new values to receive target values
             var newTransform = new RatchetTransform();
-            
-            // calculate the translation change
-            newTransform.translate = XYZ.prototype.add.apply(
-                this.translate,
-                Array.prototype.map.call(arguments, function(item) { return item.translate; })
-            );
-            
-            console.log(newTransform.translate);
+    
+            // if a numeric value has been passed, then process
+            if (typeof value == 'number') {
+                newTransform.translate = this.translate.add(value);
+            }
+            // otherwise process individually
+            else {
+                // calculate the translation change
+                newTransform.translate = XYZ.prototype.add.apply(
+                    this.translate,
+                    Array.prototype.map.call(arguments, function(item) { return item.translate; })
+                );
+            }
             
             return newTransform;
+        },
+        
+        sub: function() {
+            var args = [];
+            for (var ii = arguments.length; ii--; ) {
+                if (typeof arguments[ii] == 'number') {
+                    args[ii] = -arguments[ii];
+                }
+                else {
+                    args[ii] = arguments[ii].invert();
+                }
+            }
+            
+            // run the add function
+            this.add.apply(this, args);
         }
     };
 
@@ -175,7 +207,7 @@ var ratchet = (function() {
                         }
                     }
                     
-                    props[key] = new (key == 'scale' ? Scaler : XYZ)(data);
+                    props[key] = new XYZ(key, data);
                 }
             });
         }
