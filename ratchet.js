@@ -2,7 +2,7 @@ var ratchet = (function() {
     
     function TransformValue(value, units) {
         this.value = parseFloat(value) || value;
-        this.units = units || 'px';
+        this.units = typeof units != 'undefined' ? units : 'px';
     }
     
     TransformValue.prototype.valueOf = function() {
@@ -26,11 +26,11 @@ var ratchet = (function() {
         opts = opts || {};
         
         this.type = type;
-        this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : 0);
-        this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : 0);
+        this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : 0, opts.units);
+        this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : 0, opts.units);
         
         if (opts.z) {
-            this.z = new TransformValue(opts.z);
+            this.z = new TransformValue(opts.z, opts.units);
         }
     }
     
@@ -55,61 +55,122 @@ var ratchet = (function() {
         return new XYZ(this.type, { x: x, y: y, z: z });
     };
     
-    XYZ.prototype.invert = function() {
-        return new XYZ(this.type, { x: -x, y: -y, z: -z });
+    XYZ.prototype.mul = function(value) {
+        var x = this.x.valueOf(), 
+            y = this.y.valueOf(),
+            z = this.z ? this.z.valueOf() : 0;
+        
+        if (typeof value == 'number') {
+            x *= value;
+            y *= value;
+            z = typeof this.z != 'undefined' ? z * value : 0;
+        }
+        else {
+            for (var ii = arguments.length; ii--; ) {
+                x *= arguments[ii].x;
+                y *= arguments[ii].y;
+                z *= arguments[ii].z;
+            }
+        }
+        
+        return new XYZ(this.type, { x: x, y: y, z: z });
     };
+    
+    ['sub', 'div'].forEach(function(op) {
+        var isSub = op === 'sub',
+            mappedKey = isSub ? 'add' : 'mul';
+        
+        XYZ.prototype[op] = function(value) {
+            if (typeof value == 'number') {
+                return this[mappedKey](isSub ? -value : 1 / value);
+            }
+            else {
+                var args = Array.prototype.map.call(arguments, function(item) {
+                    var inverted = new XYZ(this.type, item);
+                    
+                    if (isSub) {
+                        inverted.x = -inverted.x;
+                        inverted.y = -inverted.y;
+                        inverted.z = -inverted.z;
+                    }
+                    else {
+                        inverted.x = 1 / inverted.x;
+                        inverted.y = 1 / inverted.y;
+                        inverted.z = inverted.z ? 1 / inverted.z : 0;
+                    }
+                    
+                    return inverted;
+                });
+    
+                return this[mappedKey].apply(this, args);
+            }
+        };
+    });
     
     XYZ.prototype.toString = function(opts) {
         return this.type + '(' + [this.x, this.y].join(', ') + ')';
     };
 
+    var scaleOps = {
+        add: 'mul',
+        sub: 'div'
+    };
+    
     function RatchetTransform(opts) {
         opts = opts || {};
         
+        // ensure the scale units are set to an empty string
+        opts.scale = opts.scale || {};
+        opts.scale.units = '';
+        
         // create new translation rotation and scale values, duplicating the value provided 
-        this.translate = new XYZ(opts.translate);
-        this.rotate = new XYZ(opts.rotate);
-        this.scale = new XYZ(opts.scale);
+        this.translate = new XYZ('translate', opts.translate);
+        this.rotate = new XYZ('rotate', opts.rotate);
+        this.scale = new XYZ('scale', opts.scale);
     }
     
-    RatchetTransform.prototype = {
-        add: function(value) {
+    RatchetTransform.prototype = {};
+    
+    ['add', 'sub'].forEach(function(op) {
+        RatchetTransform.prototype[op] = function() {
             // create new values to receive target values
             var newTransform = new RatchetTransform();
-    
-            // if a numeric value has been passed, then process
-            if (typeof value == 'number') {
-                newTransform.translate = this.translate.add(value);
-            }
-            // otherwise process individually
-            else {
-                // calculate the translation change
-                newTransform.translate = XYZ.prototype.add.apply(
-                    this.translate,
-                    Array.prototype.map.call(arguments, function(item) { return item.translate; })
-                );
-            }
+            
+            // calculate the translation change
+            newTransform.translate = XYZ.prototype[op].apply(
+                this.translate,
+                Array.prototype.map.call(arguments, function(item) { return item.translate; })
+            );
+            
+            // calculate the scale change (mapping add to mul)
+            newTransform.scale = XYZ.prototype[scaleOps[op]].apply(
+                this.scale,
+                Array.prototype.map.call(arguments, function(item) { return item.scale; })
+            );
+            
+            // calculate the rotation update
+            newTransform.rotate = XYZ.prototype[op].apply(
+                this.rotate,
+                Array.prototype.map.call(arguments, function(item) { return item.rotate; })
+            );
             
             return newTransform;
-        },
-        
-        sub: function() {
-            var args = [];
-            for (var ii = arguments.length; ii--; ) {
-                if (typeof arguments[ii] == 'number') {
-                    args[ii] = -arguments[ii];
-                }
-                else {
-                    args[ii] = arguments[ii].invert();
-                }
+        };
+    });
+
+
+    function _extractVal(index, expectUnits) {
+        return function(match) {
+            var units, value;
+            if (typeof expectUnits == 'undefined' || expectUnits) {
+                units = match[index + 1];
             }
-            
-            // run the add function
-            this.add.apply(this, args);
-        }
-    };
-
-
+    
+            // create the transform value
+            return new TransformValue(match[index], units);
+        };
+    } // _extractVal
+    
     function _makeRegex(fnName, params) {
         var regex = fnName + '\\(';
         
@@ -214,18 +275,6 @@ var ratchet = (function() {
         
         return props;
     } // fromString
-    
-    function _extractVal(index, expectUnits) {
-        return function(match) {
-            var units, value;
-            if (typeof expectUnits == 'undefined' || expectUnits) {
-                units = match[index + 1];
-            }
-
-            // create the transform value
-            return new TransformValue(match[index], units);
-        };
-    } // _extractVal
     
     function _ratchet(input) {
         if (typeof input == 'string' || (input instanceof String)) {
