@@ -18,7 +18,7 @@ function parse(input, prop, values) {
 
         expect(extractedValues, 'extracted values').to.exist;
         for (var key in values) {
-            expect(extractedValues[key]).to.equal(values[key]);
+            expect(extractedValues[key] == values[key]).to.be.ok;
         }
     };
 }
