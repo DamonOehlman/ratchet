@@ -43,6 +43,7 @@ var ratchet = (function() {
     
     // bind the internal helpers so we can test 
     _ratchet.fromString = fromString;
+    _ratchet.Transform = RatchetTransform;
     
     return _ratchet;
 })();
