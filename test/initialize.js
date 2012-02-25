@@ -10,7 +10,8 @@ describe('initialization', function() {
         expect(xyz.x.units).to.equal('px');
         expect(xyz.y == 0).to.be.ok;
         expect(xyz.y.units).to.equal('px');
-        expect(xyz.z).to.not.exist;
+        expect(xyz.z == 0).to.be.ok;
+        expect(xyz.z.units).to.equal('px');
     });
     
     it('it should be able to create XYZ values, specifying no units', function() {
@@ -22,7 +23,8 @@ describe('initialization', function() {
         expect(xyz.x.units).to.equal('');
         expect(xyz.y == 0).to.be.ok;
         expect(xyz.y.units).to.equal('');
-        expect(xyz.z).to.not.exist;
+        expect(xyz.z == 0).to.be.ok;
+        expect(xyz.z.units).to.equal('');
     });
     
     it('it should be able to create XYZ values, specifying em units', function() {
@@ -34,7 +36,8 @@ describe('initialization', function() {
         expect(xyz.x.units).to.equal('em');
         expect(xyz.y == 0).to.be.ok;
         expect(xyz.y.units).to.equal('em');
-        expect(xyz.z).to.not.exist;
+        expect(xyz.z == 0).to.be.ok;
+        expect(xyz.z.units).to.equal('em');
     });
     
     it('it should be able to a transform', function() {

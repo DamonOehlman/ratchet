@@ -4,10 +4,7 @@ function XYZ(type, opts) {
     this.type = type;
     this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : 0, opts.units);
     this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : 0, opts.units);
-    
-    if (opts.z) {
-        this.z = new TransformValue(opts.z, opts.units);
-    }
+    this.z = new TransformValue(typeof opts.z != 'undefined' ? opts.z : 0, opts.units);
 }
 
 XYZ.prototype.add = function(value) {
@@ -18,7 +15,7 @@ XYZ.prototype.add = function(value) {
     if (typeof value == 'number') {
         x += value;
         y += value;
-        z = typeof this.z != 'undefined' ? z + value : 0;
+        z += value;
     }
     else {
         for (var ii = arguments.length; ii--; ) {
@@ -94,7 +91,7 @@ XYZ.prototype.toString = function(opts) {
         output[output.length] = this.type + 'Y(' + this.y.value + this.y.units + ')';
     }
     
-    if (this.z && this.z.value) {
+    if (this.z.value) {
         output[output.length] = this.type + 'Z(' + this.z.value + this.z.units + ')';
     }
     
