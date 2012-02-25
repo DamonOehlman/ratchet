@@ -7,18 +7,22 @@ describe('ratchet xyz addition', function() {
         
         expect(xyz.x == 100).to.be.ok;
         expect(xyz.y == 170).to.be.ok;
+        expect(xyz.z == 0).to.be.ok;
         expect(xyz.x.units).to.equal('px');
         expect(xyz.y.units).to.equal('px');
-        expect(xyz.z).to.not.exist;
+        expect(xyz.z.units).to.equal('px');
     });
     
     it('should be able to increase specified values with a composite value', function() {
         var xyz = xyz1.add({ x: 100, y: 40 });
         
+        console.log(xyz);
+        
         expect(xyz.x == 150).to.be.ok;
         expect(xyz.y == 160).to.be.ok;
+        expect(xyz.z == 0).to.be.ok;
         expect(xyz.x.units).to.equal('px');
         expect(xyz.y.units).to.equal('px');
-        expect(xyz.z).to.not.exist;
+        expect(xyz.z.units).to.equal('px');
     });
 });

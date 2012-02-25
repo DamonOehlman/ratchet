@@ -8,9 +8,9 @@ describe('ratchet transform addition', function() {
         expect(tx1.translate).to.exist;
         expect(tx1.translate.x == 50).to.be.ok;
         expect(tx1.translate.y == 120).to.be.ok;
+        expect(tx1.translate.z == 0).to.be.ok;
         expect(tx1.scale.x == 2).to.be.ok;
         expect(tx1.scale.y == 1).to.be.ok;
-        expect(tx1.translate.z).to.not.exist;
     });
     
     it('should be able to parse a second translation', function() {
@@ -19,11 +19,12 @@ describe('ratchet transform addition', function() {
         expect(tx2.translate).to.exist;
         expect(tx2.translate.x == 90).to.be.ok;
         expect(tx2.translate.y == 80).to.be.ok;
+        expect(tx2.translate.z == 0).to.be.ok;
         expect(tx2.translate.x.units).to.equal('px');
         expect(tx2.translate.y.units).to.equal('px');
+        expect(tx2.translate.z.units).to.equal('px');
         expect(tx2.scale.x == 0.5).to.be.ok;
         expect(tx2.scale.y == 0.5).to.be.ok;
-        expect(tx2.translate.z).to.not.exist;
     });
     
     it('should be able to add the two transforms', function() {
@@ -32,11 +33,12 @@ describe('ratchet transform addition', function() {
         expect(tx.translate).to.exist;
         expect(tx.translate.x == 140).to.be.ok;
         expect(tx.translate.y == 200).to.be.ok;
+        expect(tx.translate.z == 0).to.be.ok;
         expect(tx.translate.x.units).to.equal('px');
         expect(tx.translate.y.units).to.equal('px');
+        expect(tx.translate.z.units).to.equal('px');
         expect(tx.scale.x == 1).to.be.ok;
         expect(tx.scale.y == 0.5).to.be.ok;
-        expect(tx.translate.z).to.not.exist;
     });
     
     it('should be able to add all the transforms', function() {
@@ -49,6 +51,5 @@ describe('ratchet transform addition', function() {
         expect(tx.translate.y.units).to.equal('px');
         expect(tx.scale.x == 0.5).to.be.ok;
         expect(tx.scale.y == 0.25).to.be.ok;
-        expect(tx.translate.z).to.not.exist;
     });
 });

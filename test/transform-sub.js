@@ -10,7 +10,6 @@ describe('ratchet transform subtraction', function() {
         expect(tx1.translate.y == 120).to.be.ok;
         expect(tx1.scale.x == 2).to.be.ok;
         expect(tx1.scale.y == 1).to.be.ok;
-        expect(tx1.translate.z).to.not.exist;
     });
     
     it('should be able to parse a second translation', function() {
@@ -23,7 +22,6 @@ describe('ratchet transform subtraction', function() {
         expect(tx2.translate.y.units).to.equal('px');
         expect(tx2.scale.x == 0.5).to.be.ok;
         expect(tx2.scale.y == 0.5).to.be.ok;
-        expect(tx2.translate.z).to.not.exist;
     });
     
     it('should be able to subtract the two transforms', function() {
@@ -36,7 +34,6 @@ describe('ratchet transform subtraction', function() {
         expect(tx.translate.y.units).to.equal('px');
         expect(tx.scale.x == 4).to.be.ok;
         expect(tx.scale.y == 2).to.be.ok;
-        expect(tx.translate.z).to.not.exist;
     });
     
     it('should be able to subtract two transforms for the original transform', function() {
@@ -49,6 +46,5 @@ describe('ratchet transform subtraction', function() {
         expect(tx.translate.y.units).to.equal('px');
         expect(tx.scale.x == 8).to.be.ok;
         expect(tx.scale.y == 4).to.be.ok;
-        expect(tx.translate.z).to.not.exist;
     });
 });

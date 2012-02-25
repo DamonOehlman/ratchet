@@ -10,18 +10,18 @@ function XYZ(type, opts) {
 XYZ.prototype.add = function(value) {
     var x = this.x.valueOf(), 
         y = this.y.valueOf(),
-        z = this.z ? this.z.valueOf() : 0;
+        z = this.z.valueOf();
     
     if (typeof value == 'number') {
         x += value;
         y += value;
-        z += value;
+        z = z ? z + value : 0;
     }
     else {
         for (var ii = arguments.length; ii--; ) {
-            x += arguments[ii].x;
-            y += arguments[ii].y;
-            z += arguments[ii].z;
+            x += arguments[ii].x || 0;
+            y += arguments[ii].y || 0;
+            z = (z || arguments[ii].z) ? z + (arguments[ii].z || 0) : 0;
         }
     }
     

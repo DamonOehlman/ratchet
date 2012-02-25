@@ -28,27 +28,24 @@ var ratchet = (function() {
         this.type = type;
         this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : 0, opts.units);
         this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : 0, opts.units);
-        
-        if (opts.z) {
-            this.z = new TransformValue(opts.z, opts.units);
-        }
+        this.z = new TransformValue(typeof opts.z != 'undefined' ? opts.z : 0, opts.units);
     }
     
     XYZ.prototype.add = function(value) {
         var x = this.x.valueOf(), 
             y = this.y.valueOf(),
-            z = this.z ? this.z.valueOf() : 0;
+            z = this.z.valueOf();
         
         if (typeof value == 'number') {
             x += value;
             y += value;
-            z = typeof this.z != 'undefined' ? z + value : 0;
+            z = z ? z + value : 0;
         }
         else {
             for (var ii = arguments.length; ii--; ) {
-                x += arguments[ii].x;
-                y += arguments[ii].y;
-                z += arguments[ii].z;
+                x += arguments[ii].x || 0;
+                y += arguments[ii].y || 0;
+                z = (z || arguments[ii].z) ? z + (arguments[ii].z || 0) : 0;
             }
         }
         
@@ -118,7 +115,7 @@ var ratchet = (function() {
             output[output.length] = this.type + 'Y(' + this.y.value + this.y.units + ')';
         }
         
-        if (this.z && this.z.value) {
+        if (this.z.value) {
             output[output.length] = this.type + 'Z(' + this.z.value + this.z.units + ')';
         }
         

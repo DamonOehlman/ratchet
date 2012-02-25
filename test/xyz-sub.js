@@ -7,9 +7,10 @@ describe('ratchet xyz subtraction', function() {
         
         expect(xyz.x == 40).to.be.ok;
         expect(xyz.y == 110).to.be.ok;
+        expect(xyz.z == 0).to.be.ok;
         expect(xyz.x.units).to.equal('px');
         expect(xyz.y.units).to.equal('px');
-        expect(xyz.z).to.not.exist;
+        expect(xyz.z.units).to.equal('px');
     });
     
     it('should be able to decrease specified values with a composite value', function() {
@@ -17,8 +18,9 @@ describe('ratchet xyz subtraction', function() {
         
         expect(xyz.x == 30).to.be.ok;
         expect(xyz.y == 80).to.be.ok;
+        expect(xyz.z == 0).to.be.ok;
         expect(xyz.x.units).to.equal('px');
         expect(xyz.y.units).to.equal('px');
-        expect(xyz.z).to.not.exist;
+        expect(xyz.z.units).to.equal('px');
     });
 });
