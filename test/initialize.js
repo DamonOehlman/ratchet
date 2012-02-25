@@ -56,11 +56,11 @@ describe('initialization', function() {
         expect(transform.translate.y.units).to.equal('px');
     });
 
-    it('should initialise the rotate values with px units', function() {
+    it('should initialise the rotate values with deg units', function() {
         var transform = new RatchetTransform();
         
-        expect(transform.rotate.x.units).to.equal('px');
-        expect(transform.rotate.y.units).to.equal('px');
+        expect(transform.rotate.x.units).to.equal('deg');
+        expect(transform.rotate.y.units).to.equal('deg');
     });
     
     it('should initialise the scale values with empty units', function() {

@@ -84,5 +84,19 @@ XYZ.prototype.mul = function(value) {
 });
 
 XYZ.prototype.toString = function(opts) {
-    return this.type + '(' + [this.x, this.y].join(', ') + ')';
+    var output = [];
+    
+    if (this.x.value) {
+        output[output.length] = this.type + 'X(' + this.x.value + this.x.units + ')';
+    }
+    
+    if (this.y.value) {
+        output[output.length] = this.type + 'Y(' + this.y.value + this.y.units + ')';
+    }
+    
+    if (this.z && this.z.value) {
+        output[output.length] = this.type + 'Z(' + this.z.value + this.z.units + ')';
+    }
+    
+    return output.join(' ');
 };

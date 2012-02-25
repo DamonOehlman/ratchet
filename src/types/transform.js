@@ -10,13 +10,21 @@ function RatchetTransform(opts) {
     opts.scale = opts.scale || {};
     opts.scale.units = '';
     
+    // set the rotation units
+    opts.rotate = opts.rotate || {};
+    opts.rotate.units = 'deg';
+    
     // create new translation rotation and scale values, duplicating the value provided 
     this.translate = new XYZ('translate', opts.translate);
     this.rotate = new XYZ('rotate', opts.rotate);
     this.scale = new XYZ('scale', opts.scale);
 }
 
-RatchetTransform.prototype = {};
+RatchetTransform.prototype = {
+    toString: function() {
+        return this.translate + this.rotate + this.scale;
+    }
+};
 
 ['add', 'sub'].forEach(function(op) {
     RatchetTransform.prototype[op] = function() {

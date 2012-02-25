@@ -1,6 +1,7 @@
 var expect = require('chai').expect,
     transforms = {
         translate: 'translate(200px,-50px)',
+        translate3d: 'translate(300px, 100px, 10px)',
         translateWithRotate: 'rotate(90deg) translate(200px, -50px)',
         translateX: 'translateX(200px)',
         translateXWithRotate: 'rotate(90deg) translateX(200px)',
@@ -27,6 +28,11 @@ describe('ratchet transform parsing', function() {
     it(
         'should be able to parse an x, y translate', 
         parse(transforms.translate, 'translate', { x: 200, y: -50 })
+    );
+    
+    it(
+        'should be able to parse a 3d transform',
+        parse(transforms.translate3d, 'translate', { x: 300, y: 100, z: 10 })
     );
     
     it(
