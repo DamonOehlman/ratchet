@@ -108,7 +108,21 @@ var ratchet = (function() {
     });
     
     XYZ.prototype.toString = function(opts) {
-        return this.type + '(' + [this.x, this.y].join(', ') + ')';
+        var output = [];
+        
+        if (this.x.value) {
+            output[output.length] = this.type + 'X(' + this.x.value + this.x.units + ')';
+        }
+        
+        if (this.y.value) {
+            output[output.length] = this.type + 'Y(' + this.y.value + this.y.units + ')';
+        }
+        
+        if (this.z && this.z.value) {
+            output[output.length] = this.type + 'Z(' + this.z.value + this.z.units + ')';
+        }
+        
+        return output.join(' ');
     };
 
     var scaleOps = {
@@ -123,13 +137,33 @@ var ratchet = (function() {
         opts.scale = opts.scale || {};
         opts.scale.units = '';
         
+        // set the rotation units
+        opts.rotate = opts.rotate || {};
+        opts.rotate.units = 'deg';
+        
         // create new translation rotation and scale values, duplicating the value provided 
         this.translate = new XYZ('translate', opts.translate);
         this.rotate = new XYZ('rotate', opts.rotate);
         this.scale = new XYZ('scale', opts.scale);
     }
     
-    RatchetTransform.prototype = {};
+    RatchetTransform.prototype = {
+        toString: function() {
+            var output = this.translate.toString(),
+                rotate = this.rotate.toString(),
+                scale = this.scale.toString();
+                
+            if (rotate) {
+                output += (output ? ' ' : '') + rotate;
+            }
+            
+            if (scale) {
+                output += (output ? ' ' : '') + scale;
+            }
+            
+            return output;
+        }
+    };
     
     ['add', 'sub'].forEach(function(op) {
         RatchetTransform.prototype[op] = function() {
