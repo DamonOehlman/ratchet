@@ -22,7 +22,19 @@ function RatchetTransform(opts) {
 
 RatchetTransform.prototype = {
     toString: function() {
-        return this.translate + this.rotate + this.scale;
+        var output = this.translate.toString(),
+            rotate = this.rotate.toString(),
+            scale = this.scale.toString();
+            
+        if (rotate) {
+            output += (output ? ' ' : '') + rotate;
+        }
+        
+        if (scale) {
+            output += (output ? ' ' : '') + scale;
+        }
+        
+        return output;
     }
 };
 
