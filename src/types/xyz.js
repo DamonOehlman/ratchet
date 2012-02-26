@@ -3,9 +3,11 @@ function XYZ(type, opts) {
     
     this.type = type;
     this.defaultValue = opts.defaultValue || 0;
-    this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : this.defaultValue, opts.units);
-    this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : this.defaultValue, opts.units);
-    this.z = new TransformValue(typeof opts.z != 'undefined' ? opts.z : this.defaultValue, opts.units);
+    this.units = typeof opts.units != 'undefined' ? opts.units : 'px';
+    
+    this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : this.defaultValue, this.units);
+    this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : this.defaultValue, this.units);
+    this.z = new TransformValue(typeof opts.z != 'undefined' ? opts.z : this.defaultValue, this.units);
 }
 
 XYZ.prototype.add = function(value) {
@@ -26,7 +28,7 @@ XYZ.prototype.add = function(value) {
         }
     }
     
-    return new XYZ(this.type, { x: x, y: y, z: z });
+    return new XYZ(this.type, { x: x, y: y, z: z, units: this.units });
 };
 
 XYZ.prototype.mul = function(value) {
@@ -47,7 +49,7 @@ XYZ.prototype.mul = function(value) {
         }
     }
     
-    return new XYZ(this.type, { x: x, y: y, z: z });
+    return new XYZ(this.type, { x: x, y: y, z: z, units: this.units });
 };
 
 ['sub', 'div'].forEach(function(op) {
