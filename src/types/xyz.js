@@ -2,9 +2,10 @@ function XYZ(type, opts) {
     opts = opts || {};
     
     this.type = type;
-    this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : 0, opts.units);
-    this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : 0, opts.units);
-    this.z = new TransformValue(typeof opts.z != 'undefined' ? opts.z : 0, opts.units);
+    this.defaultValue = opts.defaultValue || 0;
+    this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : this.defaultValue, opts.units);
+    this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : this.defaultValue, opts.units);
+    this.z = new TransformValue(typeof opts.z != 'undefined' ? opts.z : this.defaultValue, opts.units);
 }
 
 XYZ.prototype.add = function(value) {
@@ -86,15 +87,15 @@ XYZ.prototype.toString = function(opts) {
     // ensure options are defined
     opts = opts || {};
     
-    if (opts.all || this.x.value) {
+    if (opts.all || (this.x.value != this.defaultValue)) {
         output[output.length] = this.type + 'X(' + this.x.value + this.x.units + ')';
     }
     
-    if (opts.all || this.y.value) {
+    if (opts.all || (this.y.value != this.defaultValue)) {
         output[output.length] = this.type + 'Y(' + this.y.value + this.y.units + ')';
     }
     
-    if (opts.all || this.z.value) {
+    if (opts.all || (this.z.value != this.defaultValue)) {
         output[output.length] = this.type + 'Z(' + this.z.value + this.z.units + ')';
     }
     

@@ -9,6 +9,7 @@ function RatchetTransform(opts) {
     // ensure the scale units are set to an empty string
     opts.scale = opts.scale || {};
     opts.scale.units = '';
+    opts.scale.defaultValue = 1;
     
     // set the rotation units
     opts.rotate = opts.rotate || {};
