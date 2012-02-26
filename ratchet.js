@@ -1,7 +1,9 @@
 var ratchet = (function() {
     
     function TransformValue(value, units) {
-        this.value = parseFloat(value) || value;
+        var parsedVal = parseFloat(value);
+        
+        this.value = isNaN(parsedVal) ? value : parsedVal;
         this.units = typeof units != 'undefined' ? units : 'px';
     }
     
@@ -145,6 +147,14 @@ var ratchet = (function() {
     }
     
     RatchetTransform.prototype = {
+        clone: function() {
+            return new RatchetTransform({
+                translate: this.translate,
+                scale: this.scale,
+                rotate: this.rotate
+            });
+        },
+        
         toString: function() {
             var output = this.translate.toString(),
                 rotate = this.rotate.toString(),

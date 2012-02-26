@@ -1,5 +1,7 @@
 function TransformValue(value, units) {
-    this.value = parseFloat(value) || value;
+    var parsedVal = parseFloat(value);
+    
+    this.value = isNaN(parsedVal) ? value : parsedVal;
     this.units = typeof units != 'undefined' ? units : 'px';
 }
 

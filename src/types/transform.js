@@ -21,6 +21,14 @@ function RatchetTransform(opts) {
 }
 
 RatchetTransform.prototype = {
+    clone: function() {
+        return new RatchetTransform({
+            translate: this.translate,
+            scale: this.scale,
+            rotate: this.rotate
+        });
+    },
+    
     toString: function() {
         var output = this.translate.toString(),
             rotate = this.rotate.toString(),

@@ -16,8 +16,6 @@ describe('ratchet xyz addition', function() {
     it('should be able to increase specified values with a composite value', function() {
         var xyz = xyz1.add({ x: 100, y: 40 });
         
-        console.log(xyz);
-        
         expect(xyz.x == 150).to.be.ok;
         expect(xyz.y == 160).to.be.ok;
         expect(xyz.z == 0).to.be.ok;
