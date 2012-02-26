@@ -29,10 +29,10 @@ RatchetTransform.prototype = {
         });
     },
     
-    toString: function() {
-        var output = this.translate.toString(),
-            rotate = this.rotate.toString(),
-            scale = this.scale.toString();
+    toString: function(opts) {
+        var output = this.translate.toString(opts),
+            rotate = this.rotate.toString(opts),
+            scale = this.scale.toString(opts);
             
         if (rotate) {
             output += (output ? ' ' : '') + rotate;

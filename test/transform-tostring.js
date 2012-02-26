@@ -7,6 +7,12 @@ describe('transform - string conversion', function() {
         expect(transform.toString()).to.equal('translateX(50px)');
     });
     
+    it('can convert a simple x translate (with all opts)', function() {
+        var transform = new RatchetTransform({ translate: { x: 50 }});
+        
+        expect(transform.toString({ all: true })).to.equal('translateX(50px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(0) scaleY(0) scaleZ(0)');
+    });
+    
     it('can convert a simple x,y translate', function() {
         var transform = new RatchetTransform({ translate: { x: 50, y: 80 }});
         
