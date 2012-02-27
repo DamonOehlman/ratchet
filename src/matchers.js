@@ -23,7 +23,7 @@ function _makeRegex(fnName, params) {
 
 var matchers = {
         val: '(\\-?[\\d\\.]+)',
-        unit: '([^\s]+)',
+        unit: '([^\\s]+)',
         ',': '\\,\\s*'
     },
     transformParsers = {
@@ -40,7 +40,8 @@ var matchers = {
                 regex: _makeRegex('translate(X|Y|Z)', 'val unit'),
                 extract: function(match, data) {
                     data[match[1].toLowerCase()] = _extractVal(2)(match);
-                }
+                },
+                multi: true
             },
             
             // 3d translation as the specific translate3d prop
@@ -64,7 +65,8 @@ var matchers = {
                 regex:  _makeRegex('rotate(X|Y|Z)', 'val unit'),
                 extract: function(match, data) {
                     data[match[1].toLowerCase()] = _extractVal(2)(match);
-                }
+                },
+                multi: true
             }
         ],
         
@@ -81,6 +83,15 @@ var matchers = {
                 regex: _makeRegex('scale', 'val , val'),
                 x: _extractVal(1, false),
                 y: _extractVal(2, false)
+            },
+            
+            // 2d/3d translation on a specific axis
+            {
+                regex: _makeRegex('scale(X|Y|Z)', 'val'),
+                extract: function(match, data) {
+                    data[match[1].toLowerCase()] = _extractVal(2)(match);
+                },
+                multi: true
             }
         ]
     };

@@ -232,7 +232,7 @@ var ratchet = (function() {
     
     var matchers = {
             val: '(\\-?[\\d\\.]+)',
-            unit: '([^\s]+)',
+            unit: '([^\\s]+)',
             ',': '\\,\\s*'
         },
         transformParsers = {
@@ -249,7 +249,8 @@ var ratchet = (function() {
                     regex: _makeRegex('translate(X|Y|Z)', 'val unit'),
                     extract: function(match, data) {
                         data[match[1].toLowerCase()] = _extractVal(2)(match);
-                    }
+                    },
+                    multi: true
                 },
                 
                 // 3d translation as the specific translate3d prop
@@ -273,7 +274,8 @@ var ratchet = (function() {
                     regex:  _makeRegex('rotate(X|Y|Z)', 'val unit'),
                     extract: function(match, data) {
                         data[match[1].toLowerCase()] = _extractVal(2)(match);
-                    }
+                    },
+                    multi: true
                 }
             ],
             
@@ -290,21 +292,33 @@ var ratchet = (function() {
                     regex: _makeRegex('scale', 'val , val'),
                     x: _extractVal(1, false),
                     y: _extractVal(2, false)
+                },
+                
+                // 2d/3d translation on a specific axis
+                {
+                    regex: _makeRegex('scale(X|Y|Z)', 'val'),
+                    extract: function(match, data) {
+                        data[match[1].toLowerCase()] = _extractVal(2)(match);
+                    },
+                    multi: true
                 }
             ]
         };
 
     
     function fromString(inputString) {
-        var props = new RatchetTransform(), key, match, data, section, value;
+        var props = new RatchetTransform(), key, match, data, section, value, testString;
         
         // iterate through the parsers
         for (key in transformParsers) {
             transformParsers[key].forEach(function(rule) {
-                match = rule.regex.exec(inputString);
+                // reset the test string to the input string
+                testString = inputString;
+                
+                match = rule.regex.exec(testString);
                 data = {};
-                    
-                if (match) {
+                
+                while (match) {
                     if (typeof rule.extract == 'function') {
                         rule.extract(match, data);
                     }
@@ -317,6 +331,18 @@ var ratchet = (function() {
                     }
                     
                     props[key] = new XYZ(key, data);
+                    
+                    // remove the match component from the input string
+                    testString = testString.slice(0, match.index) + testString.slice(match.index + match[0].length);
+                    
+                    // if this is a multimatch rule, then run the regex again
+                    if (rule.multi) {
+                        match = rule.regex.exec(testString);
+                    }
+                    // otherwise, clear the match to break the loop
+                    else {
+                        match = null;
+                    }
                 }
             });
         }

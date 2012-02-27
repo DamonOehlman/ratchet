@@ -7,15 +7,18 @@ var ratchet = (function() {
     //= matchers
     
     function fromString(inputString) {
-        var props = new RatchetTransform(), key, match, data, section, value;
+        var props = new RatchetTransform(), key, match, data, section, value, testString;
         
         // iterate through the parsers
         for (key in transformParsers) {
             transformParsers[key].forEach(function(rule) {
-                match = rule.regex.exec(inputString);
+                // reset the test string to the input string
+                testString = inputString;
+                
+                match = rule.regex.exec(testString);
                 data = {};
-                    
-                if (match) {
+                
+                while (match) {
                     if (typeof rule.extract == 'function') {
                         rule.extract(match, data);
                     }
@@ -28,6 +31,18 @@ var ratchet = (function() {
                     }
                     
                     props[key] = new XYZ(key, data);
+                    
+                    // remove the match component from the input string
+                    testString = testString.slice(0, match.index) + testString.slice(match.index + match[0].length);
+                    
+                    // if this is a multimatch rule, then run the regex again
+                    if (rule.multi) {
+                        match = rule.regex.exec(testString);
+                    }
+                    // otherwise, clear the match to break the loop
+                    else {
+                        match = null;
+                    }
                 }
             });
         }

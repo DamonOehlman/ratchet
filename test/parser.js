@@ -9,7 +9,8 @@ var expect = require('chai').expect,
         translateYWithRotate: 'rotate(90deg) translateY(-50px)',
         rotate: 'rotate(175deg)',
         scaleSimple: 'scale(0.5)',
-        scaleXY: 'scale(0.5, 2)'
+        scaleXY: 'scale(0.5, 2)',
+        sepTransforms: 'translateX(100.2px) translateY(20px) translateZ(30px) rotateX(-105deg) rotateY(-30deg) rotateZ(180deg) scaleX(1.2) scaleY(0.8) scaleZ(0.4)'
     };
     
 function parse(input, prop, values) {
@@ -19,7 +20,7 @@ function parse(input, prop, values) {
 
         expect(extractedValues, 'extracted values').to.exist;
         for (var key in values) {
-            expect(extractedValues[key] == values[key]).to.be.ok;
+            expect(extractedValues[key] == values[key], prop + '-' + key + ': ' + extractedValues[key] + ' != ' + values[key]).to.be.ok;
         }
     };
 }
@@ -73,5 +74,20 @@ describe('ratchet transform parsing', function() {
     it(
         'should be able to parse double parameter scaling',
         parse(transforms.scaleXY, 'scale', { x: 0.5, y: 2 })
+    );
+    
+    it(
+        'should be able to parse a complex separated transform (translate)', 
+        parse(transforms.sepTransforms, 'translate', { x: 100.2, y: 20, z: 30 })
+    );
+
+    it(
+        'should be able to parse a complex separated transform (rotate)', 
+        parse(transforms.sepTransforms, 'rotate', { x: -105, y: -30, z: 180 })
+    );
+    
+    it(
+        'should be able to parse a complex separated transform (scale)', 
+        parse(transforms.sepTransforms, 'scale', { x: 1.2, y: 0.8, z: 0.4 })
     );
 });
