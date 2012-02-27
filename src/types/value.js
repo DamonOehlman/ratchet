@@ -2,7 +2,7 @@ function TransformValue(value, units) {
     var parsedVal = parseFloat(value);
     
     this.value = isNaN(parsedVal) ? value : parsedVal;
-    this.units = typeof units != 'undefined' ? units : 'px';
+    this.units = units || '';
 }
 
 TransformValue.prototype.valueOf = function() {

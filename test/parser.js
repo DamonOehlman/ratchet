@@ -1,6 +1,7 @@
 var expect = require('chai').expect,
     transforms = {
         translate: 'translate(200px,-50px)',
+        translateNoUnits: 'translate(200, -50)',
         translate3d: 'translate(300px, 100px, 10px)',
         translateWithRotate: 'rotate(90deg) translate(200px, -50px)',
         translateX: 'translateX(200px)',
@@ -8,6 +9,7 @@ var expect = require('chai').expect,
         translateY: 'translateY(-50px)',
         translateYWithRotate: 'rotate(90deg) translateY(-50px)',
         rotate: 'rotate(175deg)',
+        rotateNoUnits: 'rotate(190)',
         scaleSimple: 'scale(0.5)',
         scaleXY: 'scale(0.5, 2)',
         sepTransforms: 'translateX(100.2px) translateY(20px) translateZ(30px) rotateX(-105deg) rotateY(-30deg) rotateZ(180deg) scaleX(1.2) scaleY(0.8) scaleZ(0.4)'
@@ -99,4 +101,25 @@ describe('ratchet transform parsing', function() {
         expect(transform.rotate.z.units).to.equal('deg');
         expect(transform.scale.x.units).to.equal('');
     });
+    
+    it('should be able to add the appropriate units when they are not specified', function() {
+        var transform = ratchet(transforms.translateNoUnits);
+        
+        expect(transform).to.exist;
+        expect(transform.translate.x.value).to.equal(200);
+        expect(transform.translate.x.units).to.equal('px');
+        expect(transform.translate.y.value).to.equal(-50);
+        expect(transform.translate.y.units).to.equal('px');
+    });
+    
+    it('should be able to add the appropriate units when they are not specified', function() {
+        var transform = ratchet(transforms.rotateNoUnits);
+        
+        console.log(transform);
+        
+        expect(transform).to.exist;
+        expect(transform.rotate.z.value).to.equal(190);
+        expect(transform.rotate.z.units).to.equal('deg');
+    });
+    
 });

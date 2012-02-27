@@ -2,7 +2,10 @@ function _extractVal(index, expectUnits) {
     return function(match) {
         var units = '', value;
         if (typeof expectUnits == 'undefined' || expectUnits) {
-            units = match[index + 1];
+            // get the units
+            // default to undefined if an empty string which means the 
+            // default units for the XYZ value type will be used
+            units = match[index + 1] || undefined;
         }
 
         // create the transform value
@@ -23,9 +26,16 @@ function _makeRegex(fnName, params) {
 
 var matchers = {
         val: '(\\-?[\\d\\.]+)',
-        unit: '([^\\s]+)',
+        unit: '([^\\s]*)',
         ',': '\\,\\s*'
     },
+    
+    unitTypes = {
+        translate: 'px',
+        rotate: 'deg',
+        scale: ''
+    },
+    
     transformParsers = {
         translate: [
             // standard 2d translation

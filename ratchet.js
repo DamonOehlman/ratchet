@@ -4,7 +4,7 @@ var ratchet = (function() {
         var parsedVal = parseFloat(value);
         
         this.value = isNaN(parsedVal) ? value : parsedVal;
-        this.units = typeof units != 'undefined' ? units : 'px';
+        this.units = units || '';
     }
     
     TransformValue.prototype.valueOf = function() {
@@ -33,7 +33,7 @@ var ratchet = (function() {
         this.defaultValue = opts.defaultValue || 0;
         
         // look for the default units
-        defaultUnits = typeof opts.units != 'undefined' ? opts.units : (opts.x || opts.y || opts.z || {}).units;
+        defaultUnits = (opts.x || {}).units || (opts.y || {}).units || (opts.z || {}).units || opts.units;
         
         // initialise the units
         this.units = typeof defaultUnits != 'undefined' ? defaultUnits : 'px';
@@ -218,7 +218,10 @@ var ratchet = (function() {
         return function(match) {
             var units = '', value;
             if (typeof expectUnits == 'undefined' || expectUnits) {
-                units = match[index + 1];
+                // get the units
+                // default to undefined if an empty string which means the 
+                // default units for the XYZ value type will be used
+                units = match[index + 1] || undefined;
             }
     
             // create the transform value
@@ -239,9 +242,16 @@ var ratchet = (function() {
     
     var matchers = {
             val: '(\\-?[\\d\\.]+)',
-            unit: '([^\\s]+)',
+            unit: '([^\\s]*)',
             ',': '\\,\\s*'
         },
+        
+        unitTypes = {
+            translate: 'px',
+            rotate: 'deg',
+            scale: ''
+        },
+        
         transformParsers = {
             translate: [
                 // standard 2d translation
@@ -354,6 +364,7 @@ var ratchet = (function() {
                 
                 // initialise the properties (if we have data)
                 if (data) {
+                    data.units = unitTypes[key];
                     props[key] = new XYZ(key, data);
                 }
             });

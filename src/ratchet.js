@@ -47,6 +47,7 @@ var ratchet = (function() {
                 
                 // initialise the properties (if we have data)
                 if (data) {
+                    data.units = unitTypes[key];
                     props[key] = new XYZ(key, data);
                 }
             });

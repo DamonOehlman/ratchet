@@ -7,7 +7,7 @@ function XYZ(type, opts) {
     this.defaultValue = opts.defaultValue || 0;
     
     // look for the default units
-    defaultUnits = typeof opts.units != 'undefined' ? opts.units : (opts.x || opts.y || opts.z || {}).units;
+    defaultUnits = (opts.x || {}).units || (opts.y || {}).units || (opts.z || {}).units || opts.units;
     
     // initialise the units
     this.units = typeof defaultUnits != 'undefined' ? defaultUnits : 'px';
