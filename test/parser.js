@@ -12,7 +12,8 @@ var expect = require('chai').expect,
         rotateNoUnits: 'rotate(190)',
         scaleSimple: 'scale(0.5)',
         scaleXY: 'scale(0.5, 2)',
-        sepTransforms: 'translateX(100.2px) translateY(20px) translateZ(30px) rotateX(-105deg) rotateY(-30deg) rotateZ(180deg) scaleX(1.2) scaleY(0.8) scaleZ(0.4)'
+        sepTransforms: 'translateX(100.2px) translateY(20px) translateZ(30px) rotateX(-105deg) rotateY(-30deg) rotateZ(180deg) scaleX(1.2) scaleY(0.8) scaleZ(0.4)',
+        rotateNoUnitsWithTranslate: 'translateX(3px) rotate(5.72)'
     };
     
 function parse(input, prop, values) {
@@ -115,11 +116,16 @@ describe('ratchet transform parsing', function() {
     it('should be able to add the appropriate units when they are not specified', function() {
         var transform = ratchet(transforms.rotateNoUnits);
         
-        console.log(transform);
-        
         expect(transform).to.exist;
         expect(transform.rotate.z.value).to.equal(190);
         expect(transform.rotate.z.units).to.equal('deg');
     });
     
+    it('should be able to add the appropriate units when they are not specified', function() {
+        var transform = ratchet(transforms.rotateNoUnitsWithTranslate);
+        
+        expect(transform).to.exist;
+        expect(transform.rotate.z.value).to.equal(5.72);
+        expect(transform.rotate.z.units).to.equal('deg');
+    });
 });

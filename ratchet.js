@@ -332,6 +332,7 @@ var ratchet = (function() {
                 // reset the test string to the input string
                 testString = inputString;
                 
+                // get the initial match
                 match = rule.regex.exec(testString);
                 
                 while (match) {
@@ -349,6 +350,9 @@ var ratchet = (function() {
                         }
                     }
                     
+                    // update the data units
+                    data.units = unitTypes[key];
+                    
                     // remove the match component from the input string
                     testString = testString.slice(0, match.index) + testString.slice(match.index + match[0].length);
                     
@@ -364,8 +368,10 @@ var ratchet = (function() {
                 
                 // initialise the properties (if we have data)
                 if (data) {
-                    data.units = unitTypes[key];
                     props[key] = new XYZ(key, data);
+                    
+                    // reset the data
+                    data = undefined;
                 }
             });
         }
