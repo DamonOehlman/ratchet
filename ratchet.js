@@ -25,11 +25,18 @@ var ratchet = (function() {
     };
 
     function XYZ(type, opts) {
+        var defaultUnits;
+        
         opts = opts || {};
         
         this.type = type;
         this.defaultValue = opts.defaultValue || 0;
-        this.units = typeof opts.units != 'undefined' ? opts.units : 'px';
+        
+        // look for the default units
+        defaultUnits = typeof opts.units != 'undefined' ? opts.units : (opts.x || opts.y || opts.z || {}).units;
+        
+        // initialise the units
+        this.units = typeof defaultUnits != 'undefined' ? defaultUnits : 'px';
         
         this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : this.defaultValue, this.units);
         this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : this.defaultValue, this.units);
@@ -209,7 +216,7 @@ var ratchet = (function() {
 
     function _extractVal(index, expectUnits) {
         return function(match) {
-            var units, value;
+            var units = '', value;
             if (typeof expectUnits == 'undefined' || expectUnits) {
                 units = match[index + 1];
             }
@@ -298,7 +305,7 @@ var ratchet = (function() {
                 {
                     regex: _makeRegex('scale(X|Y|Z)', 'val'),
                     extract: function(match, data) {
-                        data[match[1].toLowerCase()] = _extractVal(2)(match);
+                        data[match[1].toLowerCase()] = _extractVal(2, false)(match);
                     },
                     multi: true
                 }
@@ -316,9 +323,11 @@ var ratchet = (function() {
                 testString = inputString;
                 
                 match = rule.regex.exec(testString);
-                data = {};
                 
                 while (match) {
+                    // ensure data has been initialized
+                    data = data || {};
+                    
                     if (typeof rule.extract == 'function') {
                         rule.extract(match, data);
                     }
@@ -329,8 +338,6 @@ var ratchet = (function() {
                             }
                         }
                     }
-                    
-                    props[key] = new XYZ(key, data);
                     
                     // remove the match component from the input string
                     testString = testString.slice(0, match.index) + testString.slice(match.index + match[0].length);
@@ -343,6 +350,11 @@ var ratchet = (function() {
                     else {
                         match = null;
                     }
+                }
+                
+                // initialise the properties (if we have data)
+                if (data) {
+                    props[key] = new XYZ(key, data);
                 }
             });
         }

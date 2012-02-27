@@ -1,6 +1,6 @@
 function _extractVal(index, expectUnits) {
     return function(match) {
-        var units, value;
+        var units = '', value;
         if (typeof expectUnits == 'undefined' || expectUnits) {
             units = match[index + 1];
         }
@@ -89,7 +89,7 @@ var matchers = {
             {
                 regex: _makeRegex('scale(X|Y|Z)', 'val'),
                 extract: function(match, data) {
-                    data[match[1].toLowerCase()] = _extractVal(2)(match);
+                    data[match[1].toLowerCase()] = _extractVal(2, false)(match);
                 },
                 multi: true
             }

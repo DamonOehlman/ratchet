@@ -16,9 +16,11 @@ var ratchet = (function() {
                 testString = inputString;
                 
                 match = rule.regex.exec(testString);
-                data = {};
                 
                 while (match) {
+                    // ensure data has been initialized
+                    data = data || {};
+                    
                     if (typeof rule.extract == 'function') {
                         rule.extract(match, data);
                     }
@@ -29,8 +31,6 @@ var ratchet = (function() {
                             }
                         }
                     }
-                    
-                    props[key] = new XYZ(key, data);
                     
                     // remove the match component from the input string
                     testString = testString.slice(0, match.index) + testString.slice(match.index + match[0].length);
@@ -43,6 +43,11 @@ var ratchet = (function() {
                     else {
                         match = null;
                     }
+                }
+                
+                // initialise the properties (if we have data)
+                if (data) {
+                    props[key] = new XYZ(key, data);
                 }
             });
         }

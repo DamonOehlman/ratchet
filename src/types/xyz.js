@@ -1,9 +1,16 @@
 function XYZ(type, opts) {
+    var defaultUnits;
+    
     opts = opts || {};
     
     this.type = type;
     this.defaultValue = opts.defaultValue || 0;
-    this.units = typeof opts.units != 'undefined' ? opts.units : 'px';
+    
+    // look for the default units
+    defaultUnits = typeof opts.units != 'undefined' ? opts.units : (opts.x || opts.y || opts.z || {}).units;
+    
+    // initialise the units
+    this.units = typeof defaultUnits != 'undefined' ? defaultUnits : 'px';
     
     this.x = new TransformValue(typeof opts.x != 'undefined' ? opts.x : this.defaultValue, this.units);
     this.y = new TransformValue(typeof opts.y != 'undefined' ? opts.y : this.defaultValue, this.units);

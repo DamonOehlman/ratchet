@@ -90,4 +90,13 @@ describe('ratchet transform parsing', function() {
         'should be able to parse a complex separated transform (scale)', 
         parse(transforms.sepTransforms, 'scale', { x: 1.2, y: 0.8, z: 0.4 })
     );
+    
+    it('should be able to parse the appropriate units', function() {
+        var transform = ratchet(transforms.sepTransforms);
+        
+        expect(transform).to.exist;
+        expect(transform.translate.x.units).to.equal('px');
+        expect(transform.rotate.z.units).to.equal('deg');
+        expect(transform.scale.x.units).to.equal('');
+    });
 });
