@@ -1,5 +1,7 @@
 var expect = require('chai').expect,
-    xyz1 = new XYZ('translate', { x: 50, y: 120 }), xyz2;
+    ratchet = require('../ratchet'),
+    xyz1 = new ratchet.XYZ('translate', { x: 50, y: 120 }), 
+    xyz2;
 
 describe('ratchet xyz addition', function() {
     it('should be able add increase all values by a single numeric value', function() {
@@ -25,7 +27,7 @@ describe('ratchet xyz addition', function() {
     });
     
     it('should be able to initialize a new rotation', function() {
-        xyz2 = new XYZ('rotate', { z: 180, units: 'deg' });
+        xyz2 = new ratchet.XYZ('rotate', { z: 180, units: 'deg' });
         
         expect(xyz2.z == 180).to.be.ok;
         expect(xyz2.z.units).to.equal('deg');

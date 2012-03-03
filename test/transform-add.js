@@ -1,4 +1,5 @@
 var expect = require('chai').expect,
+    ratchet = require('../ratchet'),
     tx1, tx2, tx3;
 
 describe('ratchet transform addition', function() {

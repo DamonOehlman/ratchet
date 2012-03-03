@@ -1,4 +1,5 @@
-var expect = require('chai').expect;
+var expect = require('chai').expect,
+    ratchet = require('../ratchet'),
     tx1;
 
 describe('ratchet transform cloning', function() {
@@ -15,8 +16,6 @@ describe('ratchet transform cloning', function() {
     
     it('should be able to clone the transform', function() {
         var tx = tx1.clone();
-        
-        console.log(tx);
         
         expect(tx.translate.x == 50).to.be.ok;
         expect(tx.translate.y == 120).to.be.ok;

@@ -1,4 +1,9 @@
-var ratchet = (function() {
+// ratchet 0.1.0
+// ────────────────────────────────────────────────────────────────────────────────────────
+// CSS3 Transform Parsers and Generator
+// ────────────────────────────────────────────────────────────────────────────────────────
+
+(function (glob) {
     
     function TransformValue(value, units) {
         var parsedVal = parseFloat(value);
@@ -379,15 +384,16 @@ var ratchet = (function() {
         return props;
     } // fromString
     
-    function _ratchet(input) {
+    function ratchet(input) {
         if (typeof input == 'string' || (input instanceof String)) {
             return fromString(input);
         }
     }
     
     // bind the internal helpers so we can test 
-    _ratchet.fromString = fromString;
-    _ratchet.Transform = RatchetTransform;
+    ratchet.fromString = fromString;
+    ratchet.Transform = RatchetTransform;
+    ratchet.XYZ = XYZ;
     
-    return _ratchet;
-})();
+    (typeof module != "undefined" && module.exports) ? (module.exports = ratchet) : (typeof define != "undefined" ? (define("ratchet", [], function() { return ratchet; })) : (glob.ratchet = ratchet));
+})(this);

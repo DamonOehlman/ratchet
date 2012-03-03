@@ -3,7 +3,7 @@
     "description": "CSS3 Transform Parsers and Generator",
     "tags": ["css3", "transform"],
     "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "main": "ratchet",
     
     "dependencies": {
@@ -11,7 +11,9 @@
     
     "devDependencies": {
         "interleave": "0.1.x",
-        "uglify-js": "1.2.x"
+        "uglify-js": "1.2.x",
+        "mocha": "*",
+        "chai": "*"
     },
     
     "repository": {
@@ -22,6 +24,8 @@
     "bugs": {
         "url": "http://github.com/DamonOehlman/ratchet/issues"
     },
+    
+    "scripts": { "test": "mocha --reporter spec" },
 
     "contributors": [
     ]

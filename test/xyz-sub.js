@@ -1,5 +1,6 @@
 var expect = require('chai').expect,
-    xyz1 = new XYZ('translate', { x: 50, y: 120 });
+    ratchet = require('../ratchet'),
+    xyz1 = new ratchet.XYZ('translate', { x: 50, y: 120 });
 
 describe('ratchet xyz subtraction', function() {
     it('should be able decrease all values by a single numeric value', function() {

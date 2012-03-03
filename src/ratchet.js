@@ -1,4 +1,5 @@
-var ratchet = (function() {
+//@header
+(function (glob) {
     
     //= types/value
     //= types/xyz
@@ -62,15 +63,16 @@ var ratchet = (function() {
         return props;
     } // fromString
     
-    function _ratchet(input) {
+    function ratchet(input) {
         if (typeof input == 'string' || (input instanceof String)) {
             return fromString(input);
         }
     }
     
     // bind the internal helpers so we can test 
-    _ratchet.fromString = fromString;
-    _ratchet.Transform = RatchetTransform;
+    ratchet.fromString = fromString;
+    ratchet.Transform = RatchetTransform;
+    ratchet.XYZ = XYZ;
     
-    return _ratchet;
-})();
+    //@export ratchet
+})(this);
