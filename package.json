@@ -10,8 +10,6 @@
     },
     
     "devDependencies": {
-        "interleave": "0.1.x",
-        "uglify-js": "1.2.x",
         "mocha": "*",
         "chai": "*"
     },

@@ -1,5 +1,5 @@
 var expect = require('chai').expect,
-    ratchet = require('../ratchet'),
+    ratchet = require('../pkg/cjs/ratchet'),
     xyz1 = new ratchet.XYZ('translate', { x: 50, y: 120 });
 
 describe('ratchet xyz subtraction', function() {

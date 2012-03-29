@@ -1,5 +1,5 @@
 var expect = require('chai').expect,
-    ratchet = require('../ratchet');
+    ratchet = require('../pkg/cjs/ratchet');
 
 describe('xyz - string conversion', function() {
     it('should be able to convert an x only value to a string', function() {

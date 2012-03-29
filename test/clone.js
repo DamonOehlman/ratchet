@@ -1,5 +1,5 @@
 var expect = require('chai').expect,
-    ratchet = require('../ratchet'),
+    ratchet = require('../pkg/cjs/ratchet'),
     tx1;
 
 describe('ratchet transform cloning', function() {

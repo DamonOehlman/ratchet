@@ -1,5 +1,5 @@
 var expect = require('chai').expect,
-    ratchet = require('../ratchet');
+    ratchet = require('../pkg/cjs/ratchet');
 
 describe('initialization', function() {
     it('it should be able to create XYZ values', function() {
