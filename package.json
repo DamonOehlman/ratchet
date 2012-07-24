@@ -1,30 +1,27 @@
 {
-    "name": "ratchet",
-    "description": "CSS3 Transform Parsers and Generator",
-    "tags": ["css3", "transform"],
-    "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
-    "version": "0.1.0",
-    "main": "ratchet",
-    
-    "dependencies": {
-    },
-    
-    "devDependencies": {
-        "mocha": "*",
-        "chai": "*"
-    },
-    
-    "repository": {
-        "type": "git",
-        "url": "http://github.com/DamonOehlman/ratchet.git"
-    },
-    
-    "bugs": {
-        "url": "http://github.com/DamonOehlman/ratchet/issues"
-    },
-    
-    "scripts": { "test": "mocha --reporter spec" },
-
-    "contributors": [
-    ]
+  "name": "ratchet",
+  "description": "CSS3 Transform Parsers and Generator",
+  "tags": [
+    "css3",
+    "transform"
+  ],
+  "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
+  "version": "0.1.1",
+  "main": "ratchet",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/DamonOehlman/ratchet.git"
+  },
+  "bugs": {
+    "url": "http://github.com/DamonOehlman/ratchet/issues"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "contributors": []
 }
