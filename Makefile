@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 build:
-	@interleave src/ratchet.js --package
+	@interleave build src/ratchet.js --wrap
 
 test:
 	@mocha --reporter spec

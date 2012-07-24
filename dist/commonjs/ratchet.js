@@ -1,3 +1,6 @@
+
+
+
 function TransformValue(value, units) {
     var parsedVal = parseFloat(value);
     
@@ -21,7 +24,6 @@ TransformValue.prototype.matchingUnits = function() {
     
     return match;
 };
-
 function XYZ(type, opts) {
     var defaultUnits;
     
@@ -134,7 +136,6 @@ XYZ.prototype.toString = function(opts) {
     
     return output.join(' ');
 };
-
 var scaleOps = {
     add: 'mul',
     sub: 'div'
@@ -210,7 +211,6 @@ RatchetTransform.prototype = {
         return newTransform;
     };
 });
-
 
 function _extractVal(index, expectUnits) {
     return function(match) {
@@ -320,7 +320,6 @@ var matchers = {
         ]
     };
 
-
 function fromString(inputString) {
     var props = new RatchetTransform(), key, match, data, section, value, testString;
     
@@ -388,4 +387,6 @@ ratchet.fromString = fromString;
 ratchet.Transform = RatchetTransform;
 ratchet.XYZ = XYZ;
 
-module.exports = ratchet;
+if (typeof ratchet != 'undefined') {
+    module.exports = ratchet;
+}
