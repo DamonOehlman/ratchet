@@ -1,5 +1,5 @@
 var expect = require('chai').expect,
-    ratchet = require('../dist/commonjs/ratchet'),
+    ratchet = require('../ratchet'),
     tx1, tx2;
 
 describe('ratchet transform subtraction', function() {

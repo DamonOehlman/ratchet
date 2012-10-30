@@ -1,5 +1,26 @@
+/* ~ratchet~
+ * 
+ * CSS3 Transform Parsers and Generator
+ * 
+ * -meta---
+ * version:    0.1.1
+ * builddate:  2012-10-30T04:20:17.029Z
+ * generator:  interleave@0.5.23
+ * 
+ * 
+ * 
+ */ 
 
-define('ratchet', [], function() {
+// umdjs returnExports pattern: https://github.com/umdjs/umd/blob/master/returnExports.js
+(function (root, factory) {
+    if (typeof exports === 'object') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && define.amd) {
+        define([], factory);
+    } else {
+        root['ratchet'] = factory();
+    }
+}(this, function () {
     function TransformValue(value, units) {
         var parsedVal = parseFloat(value);
         
@@ -387,4 +408,4 @@ define('ratchet', [], function() {
     ratchet.XYZ = XYZ;
     
     return typeof ratchet != 'undefined' ? ratchet : undefined;
-});
+}));

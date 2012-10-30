@@ -1,5 +1,5 @@
 var expect = require('chai').expect,
-    ratchet = require('../dist/commonjs/ratchet'),
+    ratchet = require('../ratchet'),
     transforms = {
         translate: 'translate(200px,-50px)',
         translateNoUnits: 'translate(200, -50)',
