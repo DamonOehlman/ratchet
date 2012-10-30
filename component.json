@@ -1,0 +1,13 @@
+{
+  "name": "ratchet",
+  "repo": "DamonOehlman/ratchet",
+  "description": "CSS3 Transform Parsers and Generator",
+  "version": "0.2.0",
+  "keywords": [
+    "css"
+  ],
+  "main": "ratchet.js",
+  "scripts": [
+    "ratchet.js"
+  ]
+}
