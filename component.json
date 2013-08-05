@@ -2,7 +2,7 @@
   "name": "ratchet",
   "repo": "DamonOehlman/ratchet",
   "description": "CSS3 Transform Parsers and Generator",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "keywords": [
     "css"
   ],
