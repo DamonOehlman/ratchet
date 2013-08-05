@@ -1,27 +1,34 @@
-var expect = require('chai').expect,
-    ratchet = require('../ratchet'),
-    xyz1 = new ratchet.XYZ('translate', { x: 50, y: 120 });
+var test = require('tape');
+var ratchet = require('..');
+var xyz1;
 
-describe('ratchet xyz subtraction', function() {
-    it('should be able decrease all values by a single numeric value', function() {
-        var xyz = xyz1.sub(10);
-        
-        expect(xyz.x == 40).to.be.ok;
-        expect(xyz.y == 110).to.be.ok;
-        expect(xyz.z == 0).to.be.ok;
-        expect(xyz.x.units).to.equal('px');
-        expect(xyz.y.units).to.equal('px');
-        expect(xyz.z.units).to.equal('px');
-    });
-    
-    it('should be able to decrease specified values with a composite value', function() {
-        var xyz = xyz1.sub({ x: 20, y: 40 });
-        
-        expect(xyz.x == 30).to.be.ok;
-        expect(xyz.y == 80).to.be.ok;
-        expect(xyz.z == 0).to.be.ok;
-        expect(xyz.x.units).to.equal('px');
-        expect(xyz.y.units).to.equal('px');
-        expect(xyz.z.units).to.equal('px');
-    });
+test('init xyz', function(t) {
+  t.plan(1);
+  t.ok(xyz1 = new ratchet.XYZ('translate', { x: 50, y: 120 }));
+});
+
+test('decrease all values by a single numeric value', function(t) {
+  var xyz;
+
+  t.plan(7);
+  t.ok(xyz = xyz1.sub(10));
+  t.ok(xyz.x == 40);
+  t.ok(xyz.y == 110);
+  t.ok(xyz.z == 0);
+  t.equal(xyz.x.units, 'px');
+  t.equal(xyz.y.units, 'px');
+  t.equal(xyz.z.units, 'px');
+});
+
+test('decrease by a composite value', function(t) {
+  var xyz;
+
+  t.plan(7);
+  t.ok(xyz = xyz1.sub({ x: 20, y: 40 }));
+  t.ok(xyz.x == 30);
+  t.ok(xyz.y == 80);
+  t.ok(xyz.z == 0);
+  t.equal(xyz.x.units, 'px');
+  t.equal(xyz.y.units, 'px');
+  t.equal(xyz.z.units, 'px');
 });

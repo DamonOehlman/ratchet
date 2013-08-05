@@ -1,6 +1,11 @@
+/* jshint node: true */
+'use strict';
+
+var XYZ = require('./xyz');
+
 var scaleOps = {
-    add: 'mul',
-    sub: 'div'
+  add: 'mul',
+  sub: 'div'
 };
 
 function RatchetTransform(opts) {
@@ -19,7 +24,8 @@ function RatchetTransform(opts) {
   opts.rotate = opts.rotate || {};
   opts.rotate.units = 'deg';
   
-  // create new translation rotation and scale values, duplicating the value provided 
+  // create new translation rotation and scale values,
+  // duplicating the value provided 
   this.translate = new XYZ('translate', opts.translate);
   this.rotate = new XYZ('rotate', opts.rotate);
   this.scale = new XYZ('scale', opts.scale);
@@ -60,19 +66,28 @@ RatchetTransform.prototype.toString = function(opts) {
     // calculate the translation change
     newTransform.translate = XYZ.prototype[op].apply(
       this.translate,
-      Array.prototype.map.call(arguments, function(item) { return item.translate; })
+      Array.prototype.map.call(
+        arguments,
+        function(item) { return item.translate; }
+      )
     );
     
     // calculate the scale change (mapping add to mul)
     newTransform.scale = XYZ.prototype[scaleOps[op]].apply(
       this.scale,
-      Array.prototype.map.call(arguments, function(item) { return item.scale; })
+      Array.prototype.map.call(
+        arguments,
+        function(item) { return item.scale; }
+      )
     );
     
     // calculate the rotation update
     newTransform.rotate = XYZ.prototype[op].apply(
       this.rotate,
-      Array.prototype.map.call(arguments, function(item) { return item.rotate; })
+      Array.prototype.map.call(
+        arguments,
+        function(item) { return item.rotate; }
+      )
     );
     
     return newTransform;
