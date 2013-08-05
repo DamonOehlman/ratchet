@@ -1,3 +1,5 @@
+var RatchetTransform = require('./types/transform');
+
 //= types/value
 //= types/xyz
 //= types/transform
@@ -5,7 +7,13 @@
 var matchers = require('./matchers');
 
 function fromString(inputString) {
-    var props = new RatchetTransform(), key, match, data, section, value, testString;
+    var props = new RatchetTransform();
+    var key;
+    var match;
+    var data;
+    var section;
+    var value;
+    var testString;
     
     // iterate through the parsers
     for (key in transformParsers) {

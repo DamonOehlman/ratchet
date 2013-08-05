@@ -5,6 +5,8 @@ function TransformValue(value, units) {
     this.units = units || '';
 }
 
+module.exports = TransformValue;
+
 TransformValue.prototype.valueOf = function() {
     return this.value;
 };

@@ -17,6 +17,8 @@ function XYZ(type, opts) {
     this.z = new TransformValue(typeof opts.z != 'undefined' ? opts.z : this.defaultValue, this.units);
 }
 
+module.exports = XYZ;
+
 XYZ.prototype.add = function(value) {
     var x = this.x.valueOf(), 
         y = this.y.valueOf(),
