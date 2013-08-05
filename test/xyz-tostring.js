@@ -1,40 +1,58 @@
-var expect = require('chai').expect,
-    ratchet = require('../ratchet');
+var test = require('tape');
+var ratchet = require('..');
 
-describe('xyz - string conversion', function() {
-    it('should be able to convert an x only value to a string', function() {
-        var xyz = new ratchet.XYZ('translate', { x: 50 });
-        
-        expect(xyz.toString()).to.equal('translateX(50px)');
-    });
+function compare(xyz, string) {
+  return function(t) {
+    t.plan(2);
+    t.ok(xyz);
+    t.equal(xyz.toString(), string);
+  };
+}
 
-    it('should be able to convert an y only value to a string', function() {
-        var xyz = new ratchet.XYZ('translate', { y: 50 });
-        
-        expect(xyz.toString()).to.equal('translateY(50px)');
-    });
-    
-    it('should be able to convert an z only value to a string', function() {
-        var xyz = new ratchet.XYZ('translate', { z: 50 });
-        
-        expect(xyz.toString()).to.equal('translateZ(50px)');
-    });
-    
-    it('should be able to convert an x and y value to a string', function() {
-        var xyz = new ratchet.XYZ('translate', { x: 50, y: 100 });
-        
-        expect(xyz.toString()).to.equal('translateX(50px) translateY(100px)');
-    });
+test(
+  'x only value to a string',
+  compare(
+    new ratchet.XYZ('translate', { x: 50 }),
+    'translateX(50px)'
+  )
+);
 
-    it('should be able to convert an y and z value to a string', function() {
-        var xyz = new ratchet.XYZ('translate', { y: 80, z: 30 });
-        
-        expect(xyz.toString()).to.equal('translateY(80px) translateZ(30px)');
-    });
-    
-    it('should be able to convert an x, y and z value to a string', function() {
-        var xyz = new ratchet.XYZ('translate', { x: 50, y: 100, z: 30 });
-        
-        expect(xyz.toString()).to.equal('translateX(50px) translateY(100px) translateZ(30px)');
-    });
-});
+test(
+  'y only value to a string',
+  compare(
+    new ratchet.XYZ('translate', { y: 50 }),
+    'translateY(50px)'
+  )
+);
+
+test(
+  'z only value to a string',
+  compare(
+    new ratchet.XYZ('translate', { z: 50 }),
+    'translateZ(50px)'
+  )
+);
+
+test(
+  'convert an x and y value to a string',
+  compare(
+    new ratchet.XYZ('translate', { x: 50, y: 100 }),
+    'translateX(50px) translateY(100px)'
+  )
+);
+
+test(
+  'convert an y and z value to a string',
+  compare(
+    new ratchet.XYZ('translate', { y: 80, z: 30 }),
+    'translateY(80px) translateZ(30px)'
+  )
+);
+
+test(
+  'convert an x, y and z value to a string',
+  compare(
+    new ratchet.XYZ('translate', { x: 50, y: 100, z: 30 }),
+    'translateX(50px) translateY(100px) translateZ(30px)'
+  )
+);
