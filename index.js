@@ -20,6 +20,16 @@
 
   <<< examples/simple.js
 
+  If you want to give this a go you should be able to run the example with
+  [bde](https://github.com/DamonOehlman/bde) or 
+  [beefy](https://github.com/chrisdickinson/beefy) with some simple
+  modification.  If it works, you will see a square red box, moving 
+  and rotating towards the right of the screen.
+
+  ## Reference
+
+  To be completed.
+
 **/
 
 var RatchetTransform = require('./types/transform');

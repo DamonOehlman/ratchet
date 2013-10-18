@@ -1,7 +1,7 @@
 var ratchet = require('..');
 var transform = require('feature/css')('transform');
 var box = document.getElementById('box');
-var t = transform ? ratchet(transform(box)) : null;
+var t = transform && ratchet(transform(box));
 
 if (t) {
   setInterval(function() {

@@ -36,7 +36,7 @@ module):
 var ratchet = require('ratchet');
 var transform = require('feature/css')('transform');
 var box = document.getElementById('box');
-var t = transform ? ratchet(transform(box)) : null;
+var t = transform && ratchet(transform(box));
 
 if (t) {
   setInterval(function() {
@@ -47,6 +47,16 @@ if (t) {
   }, 1000 / 60);
 }
 ```
+
+If you want to give this a go you should be able to run the example with
+[bde](https://github.com/DamonOehlman/bde) or 
+[beefy](https://github.com/chrisdickinson/beefy) with some simple
+modification.  If it works, you will see a square red box, moving 
+and rotating towards the right of the screen.
+
+## Reference
+
+To be completed.
 
 ## License(s)
 
