@@ -7,6 +7,19 @@
   Ratchet assists with the process of dissecting CSS3 transform strings into
   javascript objects that you can then do something more intelligent with.
 
+  ## Example Usage
+
+  Displayed below is a simple example.  First a html file with a div element
+  styled to look like a square box:
+
+  <<< examples/simple.html
+
+  And then some JS that can be used to manipulate the transform of the box (
+  in partnership with the [feature](https://github.com/DamonOehlman/feature)
+  module):
+
+  <<< examples/simple.js
+
 **/
 
 var RatchetTransform = require('./types/transform');

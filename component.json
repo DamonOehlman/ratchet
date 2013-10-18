@@ -9,6 +9,9 @@
   "main": "index.js",
   "scripts": [
     "index.js",
-    "matchers.js"
+    "matchers.js",
+    "types/transform.js",
+    "types/value.js",
+    "types/xyz.js"
   ]
 }
