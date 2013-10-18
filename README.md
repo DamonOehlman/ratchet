@@ -21,7 +21,6 @@ styled to look like a square box:
 <body>
 <style type="text/css">
 #box { width: 50px; height: 50px; background: red; }
-}
 </style>
 <div id="box"></div>
 <script src="simple-bundle.js"></script>
