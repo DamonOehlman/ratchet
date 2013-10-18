@@ -15,7 +15,7 @@
     "url": "http://github.com/DamonOehlman/ratchet/issues"
   },
   "scripts": {
-    "gendocs": "sourcecat | emu > README.md",
+    "gendocs": "gendocs > README.md",
     "test": "node test/all.js"
   },
   "main": "index.js",

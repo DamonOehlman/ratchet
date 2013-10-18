@@ -6,8 +6,9 @@
   "keywords": [
     "css"
   ],
-  "main": "ratchet.js",
+  "main": "index.js",
   "scripts": [
-    "ratchet.js"
+    "index.js",
+    "matchers.js"
   ]
 }
