@@ -2,7 +2,7 @@
   "name": "ratchet",
   "description": "CSS3 Transform Parsers and Generator",
   "author": "Damon Oehlman <damon.oehlman@gmail.com>",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": {},
   "devDependencies": {
     "tape": "~1.0.4"
