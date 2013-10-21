@@ -5,7 +5,7 @@
   "version": "0.3.1",
   "dependencies": {},
   "devDependencies": {
-    "tape": "~1.0.4",
+    "tape": "~2.0.0",
     "feature": "~0.1.2"
   },
   "repository": {
