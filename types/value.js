@@ -3,7 +3,7 @@
 
 function TransformValue(value, units) {
   var parsedVal = parseFloat(value);
-  
+
   this.value = isNaN(parsedVal) ? value : parsedVal;
   this.units = units || '';
 }
@@ -23,6 +23,6 @@ TransformValue.prototype.matchingUnits = function() {
   for (var ii = arguments.length; ii--; ) {
     match = arguments[ii].units === this.units;
   }
-  
+
   return match;
 };

@@ -21,9 +21,9 @@
   <<< examples/simple.js
 
   If you want to give this a go you should be able to run the example with
-  [bde](https://github.com/DamonOehlman/bde) or 
+  [bde](https://github.com/DamonOehlman/bde) or
   [beefy](https://github.com/chrisdickinson/beefy) with some simple
-  modification.  If it works, you will see a square red box, moving 
+  modification.  If it works, you will see a square red box, moving
   and rotating towards the right of the screen.
 
   ## Reference
@@ -49,14 +49,14 @@ function fromString(inputString) {
   function checkMatch(rule) {
     // reset the test string to the input string
     var testString = inputString;
-    
+
     // get the initial match
     var match = rule.regex.exec(testString);
-    
+
     while (match) {
       // ensure data has been initialized
       data = data || {};
-      
+
       if (typeof rule.extract == 'function') {
         rule.extract(match, data);
       }
@@ -67,14 +67,14 @@ function fromString(inputString) {
           }
         }
       }
-      
+
       // update the data units
       data.units = unitTypes[key];
-      
+
       // remove the match component from the input string
       testString = testString.slice(0, match.index) +
         testString.slice(match.index + match[0].length);
-      
+
       // if this is a multimatch rule, then run the regex again
       if (rule.multi) {
         match = rule.regex.exec(testString);
@@ -84,11 +84,11 @@ function fromString(inputString) {
         match = null;
       }
     }
-    
+
     // initialise the properties (if we have data)
     if (data) {
       props[key] = new XYZ(key, data);
-      
+
       // reset the data
       data = undefined;
     }
@@ -108,7 +108,7 @@ var ratchet = module.exports = function(input) {
   }
 };
 
-// bind the internal helpers so we can test 
+// bind the internal helpers so we can test
 ratchet.fromString = fromString;
 ratchet.Transform = RatchetTransform;
 ratchet.XYZ = XYZ;
