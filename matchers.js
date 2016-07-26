@@ -4,9 +4,9 @@
 var TransformValue = require('./types/value');
 
 function extractVal(index, expectUnits) {
-  return function(match) {
+  return function (match) {
     var units = '';
-    
+
     if (typeof expectUnits == 'undefined' || expectUnits) {
       // get the units
       // default to undefined if an empty string which means the 
@@ -21,11 +21,11 @@ function extractVal(index, expectUnits) {
 
 function makeRegex(fnName, params) {
   var regex = fnName + '\\(';
-  
-  (params || '').split(/\s/).forEach(function(param) {
+
+  (params || '').split(/\s/).forEach(function (param) {
     regex += matchers[param];
   });
-  
+
   // return the regex
   return new RegExp(regex + '\\)');
 }
@@ -47,7 +47,7 @@ exports.translate = [
   // 2d/3d translation on a specific axis
   {
     regex: makeRegex('translate(X|Y|Z)', 'val unit'),
-    extract: function(match, data) {
+    extract: function (match, data) {
       data[match[1].toLowerCase()] = extractVal(2)(match);
     },
     multi: true
@@ -55,7 +55,7 @@ exports.translate = [
 
   // 3d translation as the specific translate3d prop
   {
-    regex: makeRegex('translate', 'val unit , val unit , val unit'),
+    regex: makeRegex('translate3d', 'val unit , val unit , val unit'),
     x: extractVal(1),
     y: extractVal(3),
     z: extractVal(5)
@@ -71,8 +71,8 @@ exports.rotate = [
 
   // 3d rotations on a specific axis
   {
-    regex:  makeRegex('rotate(X|Y|Z)', 'val unit'),
-    extract: function(match, data) {
+    regex: makeRegex('rotate(X|Y|Z)', 'val unit'),
+    extract: function (match, data) {
       data[match[1].toLowerCase()] = extractVal(2)(match);
     },
     multi: true
@@ -97,7 +97,7 @@ exports.scale = [
   // 2d/3d translation on a specific axis
   {
     regex: makeRegex('scale(X|Y|Z)', 'val'),
-    extract: function(match, data) {
+    extract: function (match, data) {
       data[match[1].toLowerCase()] = extractVal(2, false)(match);
     },
     multi: true
