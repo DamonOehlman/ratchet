@@ -3,7 +3,9 @@ var ratchet = require('../');
 var transforms = {
   translate: 'translate(200px,-50px)',
   translateNoUnits: 'translate(200, -50)',
-  translate3d: 'translate(300px, 100px, 10px)',
+  translate3d: 'translate3d(300px, 100px, 10px)',
+  translate3dDecimals: 'translate3d(20.5px, 30.6px, 0)',
+  translate3dWithRotate: 'translate3d(300px, 100px, 0) rotate(0deg)',
   translateWithRotate: 'rotate(90deg) translate(200px, -50px)',
   translateX: 'translateX(200px)',
   translateXWithRotate: 'rotate(90deg) translateX(200px)',
@@ -16,9 +18,9 @@ var transforms = {
   sepTransforms: 'translateX(100.2px) translateY(20px) translateZ(30px) rotateX(-105deg) rotateY(-30deg) rotateZ(180deg) scaleX(1.2) scaleY(0.8) scaleZ(0.4)',
   rotateNoUnitsWithTranslate: 'translateX(3px) rotate(5.72)'
 };
-    
+
 function parse(input, prop, values) {
-  return function(t) {
+  return function (t) {
     var transform;
     var extractedValues;
 
@@ -35,70 +37,85 @@ function parse(input, prop, values) {
 
 test(
   'x, y translate',
-  parse(transforms.translate, 'translate', { x: 200, y: -50 })
+  parse(transforms.translate, 'translate', {x: 200, y: -50})
 );
 
 test(
   '3d transform',
-  parse(transforms.translate3d, 'translate', { x: 300, y: 100, z: 10 })
+  parse(transforms.translate3d, 'translate', {x: 300, y: 100, z: 10})
 );
 
 test(
   'parse on x, y translate with other preceeding properties',
-  parse(transforms.translateWithRotate, 'translate', { x: 200, y: -50 })
+  parse(transforms.translateWithRotate, 'translate', {x: 200, y: -50})
 );
 
 test(
-  'single translateX', 
-  parse(transforms.translateX, 'translate', { x: 200 })
+  '3d transform with rotation (check translate)',
+  parse(transforms.translate3dWithRotate, 'translate', {x: 300, y: 100, z: 0})
+);
+
+test(
+  '3d transform with rotation (check rotate)',
+  parse(transforms.translate3dWithRotate, 'rotate', {x: 0, y: 0})
+);
+
+test(
+  '3d transform (float)',
+  parse(transforms.translate3dDecimals, 'translate', {x: 20.5, y: 30.6, z: 0})
+);
+
+test(
+  'single translateX',
+  parse(transforms.translateX, 'translate', {x: 200})
 );
 
 test(
   'single translateX with other preceeding properties',
-  parse(transforms.translateXWithRotate, 'translate', { x: 200 })
+  parse(transforms.translateXWithRotate, 'translate', {x: 200})
 );
 
 test(
   'parse a single translateY with negative values',
-  parse(transforms.translateY, 'translate', { y: -50 })
+  parse(transforms.translateY, 'translate', {y: -50})
 );
 
 test(
   'parse a single translateY with negative values (when preceeding properties are present)',
-  parse(transforms.translateYWithRotate, 'translate', { y: -50 })
+  parse(transforms.translateYWithRotate, 'translate', {y: -50})
 );
 
 test(
-  'parse simple rotation', 
-  parse(transforms.rotate, 'rotate', { z: 175 })
+  'parse simple rotation',
+  parse(transforms.rotate, 'rotate', {z: 175})
 );
 
 test(
   'parse single parameter scaling',
-  parse(transforms.scaleSimple, 'scale', { x: 0.5, y: 0.5 })
+  parse(transforms.scaleSimple, 'scale', {x: 0.5, y: 0.5})
 );
 
 test(
   'parse double parameter scaling',
-  parse(transforms.scaleXY, 'scale', { x: 0.5, y: 2 })
+  parse(transforms.scaleXY, 'scale', {x: 0.5, y: 2})
 );
 
 test(
-  'parse a complex separated transform (translate)', 
-  parse(transforms.sepTransforms, 'translate', { x: 100.2, y: 20, z: 30 })
+  'parse a complex separated transform (translate)',
+  parse(transforms.sepTransforms, 'translate', {x: 100.2, y: 20, z: 30})
 );
 
 test(
-  'parse a complex separated transform (rotate)', 
-  parse(transforms.sepTransforms, 'rotate', { x: -105, y: -30, z: 180 })
+  'parse a complex separated transform (rotate)',
+  parse(transforms.sepTransforms, 'rotate', {x: -105, y: -30, z: 180})
 );
 
 test(
-  'parse a complex separated transform (scale)', 
-  parse(transforms.sepTransforms, 'scale', { x: 1.2, y: 0.8, z: 0.4 })
+  'parse a complex separated transform (scale)',
+  parse(transforms.sepTransforms, 'scale', {x: 1.2, y: 0.8, z: 0.4})
 );
 
-test('parse the appropriate units', function(t) {
+test('parse the appropriate units', function (t) {
   var transform;
 
   t.plan(4);
@@ -108,7 +125,7 @@ test('parse the appropriate units', function(t) {
   t.equal(transform.scale.x.units, '');
 });
 
-test('add the appropriate units when they are not specified (translate)', function(t) {
+test('add the appropriate units when they are not specified (translate)', function (t) {
   var transform;
 
   t.plan(5);
@@ -119,7 +136,7 @@ test('add the appropriate units when they are not specified (translate)', functi
   t.equal(transform.translate.y.units, 'px');
 });
 
-test('add the appropriate units when they are not specified (rotate)', function(t) {
+test('add the appropriate units when they are not specified (rotate)', function (t) {
   var transform;
 
   t.plan(3);
@@ -128,7 +145,7 @@ test('add the appropriate units when they are not specified (rotate)', function(
   t.equal(transform.rotate.z.units, 'deg');
 });
 
-test('add the appropriate units when they are not specified (rotate)', function(t) {
+test('add the appropriate units when they are not specified (rotate)', function (t) {
   var transform;
 
   t.plan(3);
