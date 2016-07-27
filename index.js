@@ -34,7 +34,8 @@
 
 var RatchetTransform = require('./types/transform');
 var XYZ = require('./types/xyz');
-var matchers = require('./matchers');
+var matchers = require('./matchers')
+var parseMatrix = require('./parse-matrix');
 
 var unitTypes = {
   translate: 'px',
@@ -43,7 +44,7 @@ var unitTypes = {
 };
 
 function fromString(inputString) {
-  var props = new RatchetTransform();
+  var props;
   var data;
 
   function checkMatch(rule) {
@@ -94,9 +95,15 @@ function fromString(inputString) {
     }
   }
 
-  // iterate through the parsers
-  for (var key in matchers) {
-    matchers[key].forEach(checkMatch);
+  // attempt to create props from a parsing a matrix or matrix3d
+  props = parseMatrix(inputString);
+
+  // if that fails, then use the standard parsing techniques
+  if (! props) {
+    props = new RatchetTransform();
+    for (var key in matchers) {
+      matchers[key].forEach(checkMatch);
+    }
   }
 
   return props;
