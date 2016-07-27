@@ -31,13 +31,15 @@ module.exports = function(inputString) {
   }
 
   // extract the translation
-  var translate = new XYZ({
+  var translate = new XYZ('translate', {
     x: matrix.m41,
     y: matrix.m42,
-    z: matrix.m43
+    z: matrix.m43,
+    units: 'px'
   });
 
   console.log('matrix: ', matrix);
+  console.log('translate: ', translate);
 
   // zero out the last col, first three rows
   matrix.m41 = matrix.m42 = matrix.m43 = 0;
@@ -45,7 +47,7 @@ module.exports = function(inputString) {
   var scaleX = vectorLength(matrix.m11, matrix.m12, matrix.m13);
   var scaleY = vectorLength(matrix.m21, matrix.m22, matrix.m23);
   var scaleZ = vectorLength(matrix.m31, matrix.m32, matrix.m33);
-  var scale = new XYZ({
+  var scale = new XYZ('scale', {
     x: scaleX,
     y: scaleY,
     z: scaleZ,
