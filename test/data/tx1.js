@@ -1,6 +1,7 @@
 var test = require('tape');
 var ratchet = require('../..');
-var tx = module.exports = ratchet('translate(50px, 120px) scale(2.0, 1.0)');
+
+var tx = ratchet('translate(50px, 120px) scale(2.0, 1.0)');
 
 test('parse: translate(50px, 120px) scale(2.0, 1.0)', function(t) {
   t.plan(6);
@@ -11,3 +12,5 @@ test('parse: translate(50px, 120px) scale(2.0, 1.0)', function(t) {
   t.ok(tx.scale.x == 2);
   t.ok(tx.scale.y == 1);
 });
+
+module.exports = tx;

@@ -1,5 +1,6 @@
 var test = require('tape');
 var ratchet = require('../');
+
 var transforms = {
   translate: 'translate(200px,-50px)',
   translateNoUnits: 'translate(200, -50)',
@@ -29,9 +30,9 @@ function parse(input, prop, values) {
     extractedValues = transform[prop];
 
     t.ok(extractedValues, 'have extracted values');
-    for (var key in values) {
+    Object.keys(values).forEach((key) => {
       t.ok(extractedValues[key] == values[key], `${prop}-${key}: ${extractedValues[key]} == ${values[key]}`);
-    }
+    });
   };
 }
 

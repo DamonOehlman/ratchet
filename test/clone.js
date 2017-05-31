@@ -1,5 +1,6 @@
 var test = require('tape');
 var ratchet = require('../');
+
 var tx1;
 
 test('parse an initial translation', function(t) {

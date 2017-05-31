@@ -1,5 +1,6 @@
 var test = require('tape');
 var ratchet = require('..');
+
 var xyz1;
 var xyz2;
 
