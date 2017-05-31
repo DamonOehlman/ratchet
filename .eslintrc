@@ -1,11 +1,11 @@
 {
   "extends": [
-    "djo-base"
+    "djo-base/es5"
   ],
   "rules": {
-    "no-var": [0],
-    "prefer-arrow-callback": [0],
+    "eqeqeq": [0],
     "func-names": [0],
-    "eqeqeq": [0]
+    "no-param-reassign": [0],
+    "no-plusplus": [0]
   }
 }
