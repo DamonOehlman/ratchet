@@ -47,5 +47,5 @@ test('add two rotations', function(t) {
   t.plan(3);
   t.ok(xyz = xyz2.add(xyz2));
   t.ok(xyz.z == 360);
-  t.equal(xyz.z.units, 'deg'); 
+  t.equal(xyz.z.units, 'deg');
 });

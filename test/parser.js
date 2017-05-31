@@ -30,89 +30,89 @@ function parse(input, prop, values) {
 
     t.ok(extractedValues, 'have extracted values');
     for (var key in values) {
-      t.ok(extractedValues[key] == values[key], prop + '-' + key + ': ' + extractedValues[key] + ' == ' + values[key]);
+      t.ok(extractedValues[key] == values[key], `${prop}-${key}: ${extractedValues[key]} == ${values[key]}`);
     }
   };
 }
 
 test(
   'x, y translate',
-  parse(transforms.translate, 'translate', {x: 200, y: -50})
+  parse(transforms.translate, 'translate', { x: 200, y: -50 })
 );
 
 test(
   '3d transform',
-  parse(transforms.translate3d, 'translate', {x: 300, y: 100, z: 10})
+  parse(transforms.translate3d, 'translate', { x: 300, y: 100, z: 10 })
 );
 
 test(
   'parse on x, y translate with other preceeding properties',
-  parse(transforms.translateWithRotate, 'translate', {x: 200, y: -50})
+  parse(transforms.translateWithRotate, 'translate', { x: 200, y: -50 })
 );
 
 test(
   '3d transform with rotation (check translate)',
-  parse(transforms.translate3dWithRotate, 'translate', {x: 300, y: 100, z: 0})
+  parse(transforms.translate3dWithRotate, 'translate', { x: 300, y: 100, z: 0 })
 );
 
 test(
   '3d transform with rotation (check rotate)',
-  parse(transforms.translate3dWithRotate, 'rotate', {x: 0, y: 0})
+  parse(transforms.translate3dWithRotate, 'rotate', { x: 0, y: 0 })
 );
 
 test(
   '3d transform (float)',
-  parse(transforms.translate3dDecimals, 'translate', {x: 20.5, y: 30.6, z: 0})
+  parse(transforms.translate3dDecimals, 'translate', { x: 20.5, y: 30.6, z: 0 })
 );
 
 test(
   'single translateX',
-  parse(transforms.translateX, 'translate', {x: 200})
+  parse(transforms.translateX, 'translate', { x: 200 })
 );
 
 test(
   'single translateX with other preceeding properties',
-  parse(transforms.translateXWithRotate, 'translate', {x: 200})
+  parse(transforms.translateXWithRotate, 'translate', { x: 200 })
 );
 
 test(
   'parse a single translateY with negative values',
-  parse(transforms.translateY, 'translate', {y: -50})
+  parse(transforms.translateY, 'translate', { y: -50 })
 );
 
 test(
   'parse a single translateY with negative values (when preceeding properties are present)',
-  parse(transforms.translateYWithRotate, 'translate', {y: -50})
+  parse(transforms.translateYWithRotate, 'translate', { y: -50 })
 );
 
 test(
   'parse simple rotation',
-  parse(transforms.rotate, 'rotate', {z: 175})
+  parse(transforms.rotate, 'rotate', { z: 175 })
 );
 
 test(
   'parse single parameter scaling',
-  parse(transforms.scaleSimple, 'scale', {x: 0.5, y: 0.5})
+  parse(transforms.scaleSimple, 'scale', { x: 0.5, y: 0.5 })
 );
 
 test(
   'parse double parameter scaling',
-  parse(transforms.scaleXY, 'scale', {x: 0.5, y: 2})
+  parse(transforms.scaleXY, 'scale', { x: 0.5, y: 2 })
 );
 
 test(
   'parse a complex separated transform (translate)',
-  parse(transforms.sepTransforms, 'translate', {x: 100.2, y: 20, z: 30})
+  parse(transforms.sepTransforms, 'translate', { x: 100.2, y: 20, z: 30 })
 );
 
 test(
   'parse a complex separated transform (rotate)',
-  parse(transforms.sepTransforms, 'rotate', {x: -105, y: -30, z: 180})
+  parse(transforms.sepTransforms, 'rotate', { x: -105, y: -30, z: 180 })
 );
 
 test(
   'parse a complex separated transform (scale)',
-  parse(transforms.sepTransforms, 'scale', {x: 1.2, y: 0.8, z: 0.4})
+  parse(transforms.sepTransforms, 'scale', { x: 1.2, y: 0.8, z: 0.4 })
 );
 
 test('parse the appropriate units', function (t) {
