@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "djo-base"
+  ],
+  "rules": {
+    "no-var": [0],
+    "prefer-arrow-callback": [0],
+    "func-names": [0]
+  }
+}

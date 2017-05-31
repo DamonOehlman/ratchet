@@ -5,6 +5,8 @@
   "version": "0.3.1",
   "dependencies": {},
   "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-djo-base": "github:damonoehlman/eslint-config-djo-base",
     "feature": "^1.0.1",
     "tape": "^4.6.0"
   },
@@ -17,6 +19,7 @@
   },
   "scripts": {
     "gendocs": "gendocs > README.md",
+    "lint": "eslint .",
     "test": "node test/all.js"
   },
   "main": "index.js",
