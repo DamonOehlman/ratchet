@@ -1,6 +1,3 @@
-/* jshint node: true */
-'use strict';
-
 var XYZ = require('./xyz');
 
 var scaleOps = {
@@ -9,7 +6,7 @@ var scaleOps = {
 };
 
 function RatchetTransform(opts) {
-  if (! (this instanceof RatchetTransform)) {
+  if (!(this instanceof RatchetTransform)) {
     return new RatchetTransform(opts);
   }
 
