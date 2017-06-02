@@ -20,7 +20,7 @@
   If you want to give this a go you should be able to run the example with
   [bde](https://github.com/DamonOehlman/bde) simply type `npm run example`
   in the repository once cloned an dependencies have been installed.
-  
+
   Assuming it is working, you will see a square red box, moving
   and rotating towards the right of the screen.
 

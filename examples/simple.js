@@ -1,3 +1,5 @@
+/* eslint-env browser */
+
 var ratchet = require('..');
 var transform = require('feature/css')('transform');
 
