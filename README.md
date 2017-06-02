@@ -10,7 +10,7 @@ javascript objects that you can then do something more intelligent with.
 
 [![browser support](https://ci.testling.com/DamonOehlman/ratchet.png)](https://ci.testling.com/DamonOehlman/ratchet)
 
-[![Build Status](https://api.travis-ci.org/DamonOehlman/ratchet.svg?branch=master)](https://travis-ci.org/DamonOehlman/ratchet) [![bitHound Score](https://www.bithound.io/github/DamonOehlman/ratchet/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/ratchet) 
+[![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/dominictarr/stability#unstable) [![Build Status](https://api.travis-ci.org/DamonOehlman/ratchet.svg?branch=master)](https://travis-ci.org/DamonOehlman/ratchet) [![bitHound Score](https://www.bithound.io/github/DamonOehlman/ratchet/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/ratchet) 
 
 ## Example Usage
 

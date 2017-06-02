@@ -3,6 +3,7 @@
   "description": "CSS3 Transform Parsers and Generator",
   "author": "Damon Oehlman <damon.oehlman@gmail.com>",
   "version": "0.3.1",
+  "stability": "unstable",
   "dependencies": {},
   "devDependencies": {
     "bde": "^1.0.0",
