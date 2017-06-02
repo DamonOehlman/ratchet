@@ -9,7 +9,7 @@
   Displayed below is a simple example.  First a html file with a div element
   styled to look like a square box:
 
-  <<< examples/simple.html
+  <<< examples/index.html
 
   And then some JS that can be used to manipulate the transform of the box (
   in partnership with the [feature](https://github.com/DamonOehlman/feature)
@@ -18,9 +18,10 @@
   <<< examples/simple.js
 
   If you want to give this a go you should be able to run the example with
-  [bde](https://github.com/DamonOehlman/bde) or
-  [beefy](https://github.com/chrisdickinson/beefy) with some simple
-  modification.  If it works, you will see a square red box, moving
+  [bde](https://github.com/DamonOehlman/bde) simply type `npm run example`
+  in the repository once cloned an dependencies have been installed.
+  
+  Assuming it is working, you will see a square red box, moving
   and rotating towards the right of the screen.
 
   ## Reference

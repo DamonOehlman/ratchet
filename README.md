@@ -1,3 +1,4 @@
+
 # Ratchet - CSS3 Transform Parser
 
 Ratchet assists with the process of dissecting CSS3 transform strings into
@@ -6,10 +7,10 @@ javascript objects that you can then do something more intelligent with.
 
 [![NPM](https://nodei.co/npm/ratchet.png)](https://nodei.co/npm/ratchet/)
 
-[![Build Status](https://travis-ci.org/DamonOehlman/ratchet.png?branch=master)](https://travis-ci.org/DamonOehlman/ratchet)
 
 [![browser support](https://ci.testling.com/DamonOehlman/ratchet.png)](https://ci.testling.com/DamonOehlman/ratchet)
 
+[![Build Status](https://api.travis-ci.org/DamonOehlman/ratchet.svg?branch=master)](https://travis-ci.org/DamonOehlman/ratchet) [![bitHound Score](https://www.bithound.io/github/DamonOehlman/ratchet/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/ratchet) 
 
 ## Example Usage
 
@@ -35,6 +36,7 @@ module):
 ```js
 var ratchet = require('ratchet');
 var transform = require('feature/css')('transform');
+
 var box = document.getElementById('box');
 var t = transform && ratchet(transform(box));
 
@@ -46,12 +48,14 @@ if (t) {
     transform(box, t.toString());
   }, 1000 / 60);
 }
+
 ```
 
 If you want to give this a go you should be able to run the example with
-[bde](https://github.com/DamonOehlman/bde) or 
-[beefy](https://github.com/chrisdickinson/beefy) with some simple
-modification.  If it works, you will see a square red box, moving 
+[bde](https://github.com/DamonOehlman/bde) simply type `npm run example`
+in the repository once cloned an dependencies have been installed.
+
+Assuming it is working, you will see a square red box, moving
 and rotating towards the right of the screen.
 
 ## Reference
@@ -62,7 +66,7 @@ To be completed.
 
 ### MIT
 
-Copyright (c) 2013 Damon Oehlman <damon.oehlman@gmail.com>
+Copyright (c) 2017 Damon Oehlman <damon.oehlman@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
