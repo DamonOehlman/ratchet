@@ -1,12 +1,9 @@
-/* jshint node: true */
-'use strict';
-
 var TransformValue = require('./value');
 
 function XYZ(type, opts) {
   var defaultUnits;
 
-  if (! (this instanceof XYZ)) {
+  if (!(this instanceof XYZ)) {
     return new XYZ(type, opts);
   }
 
@@ -40,14 +37,14 @@ XYZ.prototype.add = function(value) {
   var x = this.x.valueOf();
   var y = this.y.valueOf();
   var z = this.z.valueOf();
+  var ii;
 
   if (typeof value == 'number') {
     x += value;
     y += value;
     z = z ? z + value : 0;
-  }
-  else {
-    for (var ii = arguments.length; ii--; ) {
+  } else {
+    for (ii = arguments.length; ii--;) {
       x += arguments[ii].x || 0;
       y += arguments[ii].y || 0;
       z = (z || arguments[ii].z) ? z + (arguments[ii].z || 0) : 0;
@@ -61,14 +58,14 @@ XYZ.prototype.mul = function(value) {
   var x = this.x.valueOf();
   var y = this.y.valueOf();
   var z = this.z ? this.z.valueOf() : 0;
+  var ii;
 
   if (typeof value == 'number') {
     x *= value;
     y *= value;
     z = typeof this.z != 'undefined' ? z * value : 0;
-  }
-  else {
-    for (var ii = arguments.length; ii--; ) {
+  } else {
+    for (ii = arguments.length; ii--;) {
       x *= arguments[ii].x;
       y *= arguments[ii].y;
       z *= arguments[ii].z;
@@ -83,30 +80,30 @@ XYZ.prototype.mul = function(value) {
   var mappedKey = isSub ? 'add' : 'mul';
 
   XYZ.prototype[op] = function(value) {
+    var xyz = this;
+    var args;
+
     if (typeof value == 'number') {
       return this[mappedKey](isSub ? -value : 1 / value);
     }
-    else {
-      var xyz = this;
-      var args = Array.prototype.map.call(arguments, function(item) {
-        var inverted = new XYZ(xyz.type, item);
 
-        if (isSub) {
-          inverted.x = -inverted.x;
-          inverted.y = -inverted.y;
-          inverted.z = -inverted.z;
-        }
-        else {
-          inverted.x = 1 / inverted.x;
-          inverted.y = 1 / inverted.y;
-          inverted.z = inverted.z ? 1 / inverted.z : 0;
-        }
+    args = Array.prototype.map.call(arguments, function(item) {
+      var inverted = new XYZ(xyz.type, item);
 
-        return inverted;
-      });
+      if (isSub) {
+        inverted.x = -inverted.x;
+        inverted.y = -inverted.y;
+        inverted.z = -inverted.z;
+      } else {
+        inverted.x = 1 / inverted.x;
+        inverted.y = 1 / inverted.y;
+        inverted.z = inverted.z ? 1 / inverted.z : 0;
+      }
 
-      return this[mappedKey].apply(this, args);
-    }
+      return inverted;
+    });
+
+    return this[mappedKey].apply(this, args);
   };
 });
 

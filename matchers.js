@@ -1,7 +1,10 @@
-/* jshint node: true */
-'use strict';
-
 var TransformValue = require('./types/value');
+
+var matchers = {
+  val: '(\\-?[\\d\\.]+)',
+  unit: '([^\\s]*)',
+  ',': '\\,\\s*'
+};
 
 function extractVal(index, expectUnits) {
   return function (match) {
@@ -9,7 +12,7 @@ function extractVal(index, expectUnits) {
 
     if (typeof expectUnits == 'undefined' || expectUnits) {
       // get the units
-      // default to undefined if an empty string which means the 
+      // default to undefined if an empty string which means the
       // default units for the XYZ value type will be used
       units = match[index + 1] || undefined;
     }
@@ -29,12 +32,6 @@ function makeRegex(fnName, params) {
   // return the regex
   return new RegExp(regex + '\\)');
 }
-
-var matchers = {
-  val: '(\\-?[\\d\\.]+)',
-  unit: '([^\\s]*)',
-  ',': '\\,\\s*'
-};
 
 exports.translate = [
   // standard 2d translation

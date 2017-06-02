@@ -1,6 +1,3 @@
-/* jshint node: true */
-'use strict';
-
 function TransformValue(value, units) {
   var parsedVal = parseFloat(value);
 
@@ -20,7 +17,9 @@ TransformValue.prototype.toString = function() {
 
 TransformValue.prototype.matchingUnits = function() {
   var match = true;
-  for (var ii = arguments.length; ii--; ) {
+  var ii;
+
+  for (ii = arguments.length; ii--;) {
     match = arguments[ii].units === this.units;
   }
 

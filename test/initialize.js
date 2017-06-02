@@ -61,8 +61,8 @@ test('transform translate initialized with px units', function(t) {
 
   t.plan(3);
   t.ok(transform = new ratchet.Transform());
-  t.equal(transform.translate.x.units, 'px');  
-  t.equal(transform.translate.y.units, 'px');  
+  t.equal(transform.translate.x.units, 'px');
+  t.equal(transform.translate.y.units, 'px');
 });
 
 test('transform rotate initialized with deg units', function(t) {
@@ -70,8 +70,8 @@ test('transform rotate initialized with deg units', function(t) {
 
   t.plan(3);
   t.ok(transform = new ratchet.Transform());
-  t.equal(transform.rotate.x.units, 'deg');  
-  t.equal(transform.rotate.y.units, 'deg');  
+  t.equal(transform.rotate.x.units, 'deg');
+  t.equal(transform.rotate.y.units, 'deg');
 });
 
 test('transform scale initialized with empty units', function(t) {
@@ -79,6 +79,6 @@ test('transform scale initialized with empty units', function(t) {
 
   t.plan(3);
   t.ok(transform = new ratchet.Transform());
-  t.equal(transform.scale.x.units, '');  
-  t.equal(transform.scale.y.units, '');  
+  t.equal(transform.scale.x.units, '');
+  t.equal(transform.scale.y.units, '');
 });

@@ -1,8 +1,6 @@
 var test = require('tape');
-var ratchet = require('..');
 var tx1 = require('./data/tx1');
 var tx2 = require('./data/tx2');
-var tx3;
 
 test('add the two transforms', function(t) {
   var tx;

@@ -1,5 +1,4 @@
 var test = require('tape');
-var ratchet = require('..');
 var tx1 = require('./data/tx1');
 var tx2 = require('./data/tx2');
 
