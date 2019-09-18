@@ -1,8 +1,6 @@
-var TransformValue = require('./value');
+const TransformValue = require('./value');
 
 function XYZ(type, opts) {
-  var defaultUnits;
-
   if (!(this instanceof XYZ)) {
     return new XYZ(type, opts);
   }
@@ -13,7 +11,7 @@ function XYZ(type, opts) {
   this.defaultValue = opts.defaultValue || 0;
 
   // look for the default units
-  defaultUnits = (opts.x || {}).units ||
+  const defaultUnits = (opts.x || {}).units ||
     (opts.y || {}).units ||
     (opts.z || {}).units ||
     opts.units;
@@ -34,17 +32,16 @@ function XYZ(type, opts) {
 module.exports = XYZ;
 
 XYZ.prototype.add = function(value) {
-  var x = this.x.valueOf();
-  var y = this.y.valueOf();
-  var z = this.z.valueOf();
-  var ii;
+  let x = this.x.valueOf();
+  let y = this.y.valueOf();
+  let z = this.z.valueOf();
 
   if (typeof value == 'number') {
     x += value;
     y += value;
     z = z ? z + value : 0;
   } else {
-    for (ii = arguments.length; ii--;) {
+    for (let ii = arguments.length; ii--;) {
       x += arguments[ii].x || 0;
       y += arguments[ii].y || 0;
       z = (z || arguments[ii].z) ? z + (arguments[ii].z || 0) : 0;

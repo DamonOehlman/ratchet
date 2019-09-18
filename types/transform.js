@@ -1,6 +1,6 @@
-var XYZ = require('./xyz');
+const XYZ = require('./xyz');
 
-var scaleOps = {
+const scaleOps = {
   add: 'mul',
   sub: 'div'
 };
@@ -54,7 +54,6 @@ RatchetTransform.prototype.toString = function(opts) {
   return output;
 };
 
-
 ['add', 'sub'].forEach(function(op) {
   RatchetTransform.prototype[op] = function() {
     // create new values to receive target values
@@ -63,28 +62,25 @@ RatchetTransform.prototype.toString = function(opts) {
     // calculate the translation change
     newTransform.translate = XYZ.prototype[op].apply(
       this.translate,
-      Array.prototype.map.call(
-        arguments,
-        function(item) { return item.translate; }
-      )
+      Array.prototype.map.call(arguments, function(item) {
+        return item.translate;
+      })
     );
 
     // calculate the scale change (mapping add to mul)
     newTransform.scale = XYZ.prototype[scaleOps[op]].apply(
       this.scale,
-      Array.prototype.map.call(
-        arguments,
-        function(item) { return item.scale; }
-      )
+      Array.prototype.map.call(arguments, function(item) {
+        return item.scale;
+      })
     );
 
     // calculate the rotation update
     newTransform.rotate = XYZ.prototype[op].apply(
       this.rotate,
-      Array.prototype.map.call(
-        arguments,
-        function(item) { return item.rotate; }
-      )
+      Array.prototype.map.call(arguments, function(item) {
+        return item.rotate;
+      })
     );
 
     return newTransform;
