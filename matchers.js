@@ -1,6 +1,6 @@
-var TransformValue = require('./types/value');
+const TransformValue = require('./types/value');
 
-var matchers = {
+const matchers = {
   val: '(\\-?[\\d\\.]+)',
   unit: '([^\\s]*)',
   ',': '\\,\\s*'

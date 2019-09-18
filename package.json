@@ -8,8 +8,10 @@
   "devDependencies": {
     "bde": "^1.0.0",
     "bithound": "^1.7.0",
-    "eslint": "^3.19.0",
+    "embellish-readme": "^1.5.2",
+    "eslint": "^6.4.0",
     "eslint-config-djo-base": "github:damonoehlman/eslint-config-djo-base",
+    "eslint-plugin-import": "^2.18.2",
     "feature": "^1.0.1",
     "tape": "^4.6.0"
   },
@@ -21,10 +23,10 @@
     "url": "http://github.com/DamonOehlman/ratchet/issues"
   },
   "scripts": {
-    "gendocs": "gendocs > README.md",
+    "gendocs": "embellish README.md",
     "lint": "eslint .",
     "test": "node test/all.js",
-    "example": "bde examples"
+    "example": "bde -p 8090 examples"
   },
   "main": "index.js",
   "directories": {
