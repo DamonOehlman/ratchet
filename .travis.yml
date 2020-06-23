@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-  - lts/carbon
-  - lts/dubnium
-  - stable
+  - lts/*
+  - node
 
 notifications:
   email:
