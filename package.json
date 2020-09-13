@@ -7,7 +7,7 @@
   "dependencies": {},
   "devDependencies": {
     "bde": "^1.0.0",
-    "embellish-readme": "^1.6.0",
+    "embellish-readme": "^1.7.2",
     "eslint": "^7.3.0",
     "eslint-config-djo-base": "github:damonoehlman/eslint-config-djo-base",
     "eslint-plugin-import": "^2.21.2",
